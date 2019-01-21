@@ -141,6 +141,17 @@ public class User implements Serializable {
         this.token = token;
     }
 
+
+    public User() {
+        super();
+    }
+
+    public User(String phone, String password, Date created) {
+        this.phone = phone;
+        this.password = password;
+        this.created = created;
+    }
+
     @Override
     public String toString() {
         return "User{" +
