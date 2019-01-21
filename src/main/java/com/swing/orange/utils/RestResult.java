@@ -57,10 +57,12 @@ public class RestResult<T> {
     }
 
     public String getTimestamp() {
-        SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss" );
-        return sdf.format(new Date());
+        return timestamp;
     }
 
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 
     @Override
     public String toString() {
