@@ -6,10 +6,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 //@SpringBootApplication
-//public class OrangeApplication {
+//public class com.swing.orange.OrangeApplication {
 //
 //	public static void main(String[] args) {
-//		SpringApplication.run(OrangeApplication.class, args);
+//		SpringApplication.run(com.swing.orange.OrangeApplication.class, args);
 //	}
 //
 //}
@@ -19,14 +19,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 @SpringBootApplication
 public class OrangeApplication extends SpringBootServletInitializer {
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        // 注意这里要指向原先用main方法执行的Application启动类
-        return builder.sources(OrangeApplication.class);
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(OrangeApplication.class, args);
     }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(OrangeApplication.class);
+    }
+
 }
 
