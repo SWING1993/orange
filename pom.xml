@@ -18,7 +18,7 @@
 	<properties>
 		<java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.swing.orange.OrangeApplication</start-class>
+        <start-class>com.swing.orange.SpringBootStartApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -88,7 +88,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.swing.orange.OrangeApplication</mainClass>
+                    <!--<mainClass>com.swing.orange.OrangeApplication</mainClass>-->
                 </configuration>
                 <executions>
                     <execution>
