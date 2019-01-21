@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @Configuration
 public class WebConfiguration {
+
     @Bean
     public RemoteIpFilter remoteIpFilter() {
         return new RemoteIpFilter();
@@ -38,7 +39,7 @@ public class WebConfiguration {
                 throws IOException, ServletException {
             // TODO Auto-generated method stub
             HttpServletRequest request = (HttpServletRequest) srequest;
-            System.out.println("this is MyFilter,url :"+request.getRequestURI());
+            System.out.println("MyFilter,url :"+request.getRequestURI());
             filterChain.doFilter(srequest, sresponse);
         }
 
