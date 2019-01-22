@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
 public class HelloWorldController {
 
@@ -16,7 +18,7 @@ public class HelloWorldController {
     @GetMapping("/")
     public RestResult helloworld(){
         helloSender.send("Rabbit 消息队列");
-        return RestResultGenerator.genSuccessResult("hello world!");
+        return RestResultGenerator.genSuccessResult("hello world! " + new Date().toString());
     }
 
 }

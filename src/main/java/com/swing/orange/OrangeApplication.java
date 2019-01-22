@@ -10,20 +10,3 @@ public class OrangeApplication {
 	}
 }
 
-///**
-// * 修改启动类，继承 SpringBootServletInitializer 并重写 configure 方法
-// */
-//@SpringBootApplication
-//public class OrangeApplication extends SpringBootServletInitializer {
-//
-//    public static void main(String[] args) {
-//        SpringApplication.run(OrangeApplication.class, args);
-//    }
-//
-//    @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-//        return builder.sources(OrangeApplication.class);
-//    }
-//
-//}
-

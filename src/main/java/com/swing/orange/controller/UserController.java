@@ -22,8 +22,6 @@ public class UserController {
         return RestResultGenerator.genSuccessResult();
     }
 
-
-
     @DeleteMapping
     public RestResult deleteUser(@RequestParam(value = "uid") long uid){
         User user = this.userRepository.findById(uid);

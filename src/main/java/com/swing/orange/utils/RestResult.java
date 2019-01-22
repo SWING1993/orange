@@ -1,8 +1,5 @@
 package com.swing.orange.utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class RestResult<T> {
 
     private boolean success;
