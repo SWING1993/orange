@@ -26,6 +26,8 @@ spring:
     password: Swing.1993
 
 
-spring.boot.admin.client.url: "http://localhost:8081"
-spring.boot.admin.client.instance.service-base-url: "http://localhost:8081"
+#spring.boot.admin.client.url: "http://localhost:8081"
+spring.boot.admin.client.url: "http://localhost:8080/orange-admin"
+#spring.boot.admin.client.instance.service-base-url: "http://localhost:8081"
+spring.boot.admin.client.instance.service-base-url: "http://localhost:8080/orange-admin"
 management.endpoints.web.exposure.include: "*"
