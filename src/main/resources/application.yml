@@ -1,0 +1,31 @@
+server:
+
+  port: 9001
+
+spring:
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/orange?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: song.1005
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show : ture
+    properties:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      hbm2ddl:
+        auto: update
+
+  application:
+    name: orange
+
+  rabbitmq:
+    host: 118.24.216.163
+    port: 5672
+    username: admin
+    password: Swing.1993
+
+
+spring.boot.admin.client.url: "http://localhost:8080"
+management.endpoints.web.exposure.include: "*"
