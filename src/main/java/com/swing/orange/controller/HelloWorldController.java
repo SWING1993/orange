@@ -18,7 +18,7 @@ public class HelloWorldController {
     @GetMapping("/")
     public RestResult helloworld(){
         helloSender.send("Rabbit 消息队列");
-        return RestResultGenerator.genSuccessResult("hello world! " + new Date().toString());
+        return RestResultGenerator.genSuccessResult("hello world! now is " + new Date().toString());
     }
 
 }
