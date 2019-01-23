@@ -15,10 +15,15 @@ public class HelloWorldController {
     @Autowired
     private RabbitSender helloSender;
 
+//    @GetMapping("/")
+//    public RestResult helloworld(){
+//        helloSender.send("Rabbit 消息队列");
+//        return RestResultGenerator.genSuccessResult("hello world! now is " + new Date().toString());
+//    }
+
     @GetMapping("/")
-    public RestResult helloworld(){
-        helloSender.send("Rabbit 消息队列");
-        return RestResultGenerator.genSuccessResult("hello world! now is " + new Date().toString());
+    public String helloworld(){
+        return "hello world!";
     }
 
 }

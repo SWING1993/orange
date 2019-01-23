@@ -26,7 +26,7 @@ public class DingChatBot {
 
         HttpResponse response = httpclient.execute(httppost);
         int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode == HttpStatus.SC_OK){
+        if (statusCode == HttpStatus.SC_OK) {
             String result= EntityUtils.toString(response.getEntity(), "utf-8");
             System.out.println(result);
         }
