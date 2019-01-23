@@ -6,6 +6,13 @@ spring:
     password: song.1005
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  mail:
+    host: smtp.qq.com
+    username: 293410177@qq.com
+    password: knjuvijxvqafcaei
+    default-encoding: UTF-8
+    test-connection: true
+
   jpa:
     show : ture
     properties:
@@ -22,4 +29,6 @@ spring:
     username: admin
     password: Swing.1993
 
+
+mail.fromMail.addr: 293410177@qq.com
 
