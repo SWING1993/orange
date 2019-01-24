@@ -35,12 +35,12 @@ public class WebConfiguration {
         }
 
         @Override
-        public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
+        public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
                 throws IOException, ServletException {
             // TODO Auto-generated method stub
-            HttpServletRequest request = (HttpServletRequest) srequest;
+            HttpServletRequest request = (HttpServletRequest) servletRequest;
             System.out.println("MyFilter,url :"+request.getRequestURI());
-            filterChain.doFilter(srequest, sresponse);
+            filterChain.doFilter(servletRequest, servletResponse);
         }
 
         @Override

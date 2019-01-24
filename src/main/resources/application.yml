@@ -1,5 +1,11 @@
 spring:
 
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+
   datasource:
     url: jdbc:mysql://localhost:3306/orange?useUnicode=true&characterEncoding=utf-8
     username: root
@@ -8,7 +14,7 @@ spring:
 
   mail:
     host: smtp.qq.com
-    username: 293410177@qq.com
+    username: superme@swing1993.cn
     password: knjuvijxvqafcaei
     default-encoding: UTF-8
     test-connection: true
@@ -30,5 +36,5 @@ spring:
     password: Swing.1993
 
 
-mail.fromMail.addr: 293410177@qq.com
+mail.fromMail.addr: superme@swing1993.cn
 

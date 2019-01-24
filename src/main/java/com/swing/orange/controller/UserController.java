@@ -2,6 +2,7 @@ package com.swing.orange.controller;
 
 import com.swing.orange.dao.UserDao;
 import com.swing.orange.entity.User;
+import com.swing.orange.utils.Md5;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ public class UserController {
     @Autowired
     private UserDao userRepository;
 
-    @PostMapping
+    private static final String passwdSalt = "xxzz00";
+
+    @PostMapping("/register")
     public RestResult saveUser(@RequestParam(value = "phone") String phone ,@RequestParam(value = "password") String password) {
         Date date = new Date();
-        userRepository.save(new User(phone, password, date));
+        userRepository.save(new User(phone, Md5.getMd5(password, passwdSalt), date));
         return RestResultGenerator.genSuccessResult();
     }
 

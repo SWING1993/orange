@@ -16,7 +16,7 @@ public class MailServiceTest {
 
     @Test
     public void testSimpleMail() throws Exception {
-        mailService.sendSimpleMail("10446627@qq.com","test simple mail"," hello this is simple mail");
+        mailService.sendSimpleMail("admin@swing1993.cn","test simple mail"," hello this is simple mail");
     }
 
     @Test
@@ -26,6 +26,6 @@ public class MailServiceTest {
                 "    <h3>hello world ! 这是一封Html邮件!</h3>\n" +
                 "</body>\n" +
                 "</html>";
-        mailService.sendHtmlMail("10446627@qq.com", "test html mail", content);
+        mailService.sendHtmlMail("admin@swing1993.cn", "test html mail", content);
     }
 }
