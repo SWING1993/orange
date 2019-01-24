@@ -38,3 +38,14 @@ spring:
 
 mail.fromMail.addr: superme@swing1993.cn
 
+#gitlab_rails['smtp_enable'] = true
+#gitlab_rails['smtp_address'] = "smtp.qq.com"
+#gitlab_rails['smtp_port'] = 465
+#gitlab_rails['smtp_user_name'] = "superme@swing1993.cn"
+#gitlab_rails['smtp_password'] = "knjuvijxvqafcaei"
+#gitlab_rails['smtp_authentication'] = "login"
+#gitlab_rails['smtp_enable_starttls_auto'] = true
+#gitlab_rails['smtp_tls'] = true
+#gitlab_rails['smtp_domain'] = "qq.com"
+#gitlab_rails['gitlab_email_from'] = "superme@swing1993.cn"
+
