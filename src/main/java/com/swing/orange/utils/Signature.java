@@ -6,7 +6,7 @@ import java.util.*;
 public class Signature {
 
     // 签名参数的key
-    private static final String SIGN_KEY = "signature_secret";
+    public static final String SIGN_KEY = "signature_secret";
     // ACCESS_KEY
     private static final String ACCESS_KEY = "accessKey";
     // ACCESS_SECRET
@@ -15,21 +15,13 @@ public class Signature {
     private final static String signSalt = "orange!@#";
 
     // 验证签名
-    public static boolean verificationSign(HttpServletRequest request) throws Exception {
-        Enumeration<?> pNames = request.getParameterNames();
-        Map<String, Object> params = new HashMap<String, Object>();
-        while (pNames.hasMoreElements()) {
-            String pName = (String) pNames.nextElement();
-            Object pValue = request.getParameter(pName);
-            params.put(pName, pValue);
-        }
-        String originSign = request.getHeader(SIGN_KEY);
+    public static boolean verificationSign(String originSign, Map<String, Object> params) throws Exception {
         String sign = createSign(params);
         return sign.equals(originSign);
     }
 
     // 签名
-    private static String createSign(Map<String, Object> params) throws Exception {
+    public static String createSign(Map<String, Object> params) throws Exception {
         System.out.println("签名的参数" + params);
         Set<String> keysSet = params.keySet();
         Object[] keys = keysSet.toArray();

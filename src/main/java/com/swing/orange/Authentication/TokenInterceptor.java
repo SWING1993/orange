@@ -5,6 +5,7 @@ import com.swing.orange.dao.UserDao;
 import com.swing.orange.entity.User;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
+import com.swing.orange.utils.Signature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TokenInterceptor implements HandlerInterceptor {
 
@@ -26,31 +30,42 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 先验证签名
-//        if (!Signature.verificationSign(request)) {
-//            System.out.println("签名错误");
-//            responseMessage(response, response.getWriter(),10002, "签名错误");
-//            return false;
-//        }
+
         return true;
 
-//        if (urls.contains(request.getRequestURI())) {
-//            return true;
-//        }
-//        // 然后验证token
-//        String token = request.getHeader("token");
-//        String uid = request.getHeader("uid");
-//        if (this.preAuthenticationHandle(response, token, uid) == false) {
-//            return false;
-//        }
-//        User user = this.userRepository.findById(Integer.valueOf(uid));
-//        if (JWTUtil.verify(token, uid, user.getPassword())) {
-//            return true;
-//        } else {
-//            System.out.println("token已失效");
-//            responseMessage(response, response.getWriter(),10002, "token已失效");
-//            return false;
-//        }
+        /*
+        // 先验证签名
+        Enumeration<?> pNames = request.getParameterNames();
+        Map<String, Object> params = new HashMap<String, Object>();
+        while (pNames.hasMoreElements()) {
+            String pName = (String) pNames.nextElement();
+            Object pValue = request.getParameter(pName);
+            params.put(pName, pValue);
+        }
+        if (!Signature.verificationSign(request.getHeader(Signature.SIGN_KEY), params)) {
+            System.out.println("签名错误");
+            responseMessage(response, response.getWriter(),10002, "签名错误");
+            return false;
+        }
+
+        if (urls.contains(request.getRequestURI())) {
+            return true;
+        }
+        // 然后验证token
+        String token = request.getHeader("token");
+        String uid = request.getHeader("uid");
+        if (this.preAuthenticationHandle(response, token, uid) == false) {
+            return false;
+        }
+        User user = this.userRepository.findById(Integer.valueOf(uid));
+        if (JWTUtil.verify(token, uid, user.getPassword())) {
+            return true;
+        } else {
+            System.out.println("token已失效");
+            responseMessage(response, response.getWriter(),10002, "token已失效");
+            return false;
+        }
+        */
     }
 
     @Override

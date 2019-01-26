@@ -10,7 +10,7 @@ public class HelloWorldController {
 //    private RabbitSender helloSender;
 
     @GetMapping("/")
-    public String index() throws Exception {
+    public String index() {
         return "hello world";
     }
 }

@@ -29,12 +29,6 @@ spring:
   application:
     name: orange
 
-  rabbitmq:
-    host: 118.24.216.163
-    port: 5672
-    username: admin
-    password: Swing.1993
-
 
 mail.fromMail.addr: superme@swing1993.cn
 
