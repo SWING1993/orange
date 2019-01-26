@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-@RestController("/user")
+@RestController
 public class UserController {
 
     @Autowired
@@ -18,14 +18,14 @@ public class UserController {
 
     private static final String passwdSalt = "xxzz00";
 
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     public RestResult saveUser(@RequestParam(value = "phone") String phone ,@RequestParam(value = "password") String password) {
         Date date = new Date();
         userRepository.save(new User(phone, Md5.getMd5(password, passwdSalt), date));
         return RestResultGenerator.genSuccessResult();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/user")
     public RestResult deleteUser(@RequestParam(value = "uid") long uid){
         User user = this.userRepository.findById(uid);
         System.out.println("deleteUser: " + user);
@@ -33,7 +33,7 @@ public class UserController {
         return RestResultGenerator.genSuccessResult();
     }
 
-    @PutMapping
+    @PutMapping("/user")
     public RestResult<User> updateUser(@RequestParam(value = "id") long id,
                                  @RequestParam(value = "email", required = false) String email,
                                  @RequestParam(value = "nickname", required = false) String nickname,
@@ -51,7 +51,7 @@ public class UserController {
         return RestResultGenerator.genSuccessResult(user);
     }
 
-    @GetMapping
+    @GetMapping("/user")
     public RestResult<User> finUserById(@RequestParam(value = "id") long id) {
         User user = this.userRepository.findById(id);
         return RestResultGenerator.genSuccessResult(user);

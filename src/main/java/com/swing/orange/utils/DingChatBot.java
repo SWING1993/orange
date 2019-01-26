@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class DingChatBot {
 
-    public static final String WEBHOOK_TOKEN = "https://oapi.dingtalk.com/robot/send?access_token=1fabf40fdf92b925fe0531fe98b42c7076e94c9ef76a45c4630d469ae8638528";
+    public static final String WEBHOOK_TOKEN = "";
 
     public static int sendMsg(String msg) throws IOException {
         HttpClient httpclient = HttpClients.createDefault();

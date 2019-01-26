@@ -10,6 +10,8 @@ public class RestResultGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestResultGenerator.class);
 
+    private static final SimpleDateFormat simpleDateFormat =  new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss" );
+
     /**
      * normal
      * @param success
@@ -25,8 +27,7 @@ public class RestResultGenerator {
         result.setCode(code);
         result.setMessage(message);
         result.setError(error);
-        SimpleDateFormat simpleDateFormat =  new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss" );
-        result.setTimestamp(simpleDateFormat.format(new Date()));
+        result.setTimestamp(RestResultGenerator.simpleDateFormat.format(new Date()));
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("generate rest result:",result);
         }

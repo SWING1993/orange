@@ -19,38 +19,38 @@ public class TokenInterceptor implements HandlerInterceptor {
     private UserDao userRepository;
 
     private final ArrayList<String> urls = new ArrayList<String>(){{
+        add("/");
         add("/user/login");
         add("/user/register");
     }};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("preHandle" + request.getRequestURI());
-
         // 先验证签名
 //        if (!Signature.verificationSign(request)) {
 //            System.out.println("签名错误");
 //            responseMessage(response, response.getWriter(),10002, "签名错误");
 //            return false;
 //        }
+        return true;
 
-        if (urls.contains(request.getRequestURI())) {
-            return true;
-        }
-        // 然后验证token
-        String token = request.getHeader("token");
-        String uid = request.getHeader("uid");
-        if (this.preAuthenticationHandle(response, token, uid) == false) {
-            return false;
-        }
-        User user = this.userRepository.findById(Integer.valueOf(uid));
-        if (JWTUtil.verify(token, uid, user.getPassword())) {
-            return true;
-        } else {
-            System.out.println("token已失效");
-            responseMessage(response, response.getWriter(),10002, "token已失效");
-            return false;
-        }
+//        if (urls.contains(request.getRequestURI())) {
+//            return true;
+//        }
+//        // 然后验证token
+//        String token = request.getHeader("token");
+//        String uid = request.getHeader("uid");
+//        if (this.preAuthenticationHandle(response, token, uid) == false) {
+//            return false;
+//        }
+//        User user = this.userRepository.findById(Integer.valueOf(uid));
+//        if (JWTUtil.verify(token, uid, user.getPassword())) {
+//            return true;
+//        } else {
+//            System.out.println("token已失效");
+//            responseMessage(response, response.getWriter(),10002, "token已失效");
+//            return false;
+//        }
     }
 
     @Override
