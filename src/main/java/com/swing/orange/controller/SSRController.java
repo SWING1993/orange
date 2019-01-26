@@ -13,6 +13,6 @@ public class SSRController {
     // 查询所有SSR用户的配置
     @GetMapping("/ssr/user")
     public RestResult<String> findBots() throws Exception {
-       return HttpClientUtils.getHandle(url + "ssr/user");
+       return HttpClientUtils.getHandle(url + "/ssr/user");
     }
 }
