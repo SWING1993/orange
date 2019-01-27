@@ -1,6 +1,5 @@
 package com.swing.orange.utils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 public class Signature {

@@ -27,7 +27,7 @@ public class HttpClientUtils {
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
             Gson gson = new Gson();
             RestResult result = gson.fromJson(content, RestResult.class);
-            System.out.println("getHandle："+result);
+            System.out.println("get result："+result);
             return result;
         }
         return RestResultGenerator.genErrorResult("xyz服务器异常");
@@ -43,7 +43,10 @@ public class HttpClientUtils {
             NameValuePair nameValuePair = parameters.get(i);
             map.put(nameValuePair.getName(), nameValuePair.getValue());
         }
-        httpPost.addHeader(Signature.SIGN_KEY, Signature.createSign(map));
+        String sign = Signature.createSign(map);
+        httpPost.addHeader(Signature.SIGN_KEY, sign);
+        System.out.println("post header key: " + Signature.SIGN_KEY);
+        System.out.println("post header value: " + sign);
         /*
         List<NameValuePair> parameters = new ArrayList<NameValuePair>(0);
         parameters.add(new BasicNameValuePair("scope", "project"));
@@ -58,7 +61,7 @@ public class HttpClientUtils {
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
             Gson gson = new Gson();
             RestResult result = gson.fromJson(content, RestResult.class);
-            System.out.println("postHandle："+result);
+            System.out.println("post result："+result);
             return result;
         }
         return RestResultGenerator.genErrorResult("xyz服务器异常");
