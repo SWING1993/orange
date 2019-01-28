@@ -27,20 +27,20 @@ public class UserMapperTest {
 
 
     @Test
-    public void selectUserByPhone() {
+    public void testSelectUserByPhone() {
         User user = userMapper.selectByPhone("18667905583");
         System.out.println(user);
     }
 
 
     @Test
-    public void selectUserByEmail() {
+    public void testSelectUserByEmail() {
         User user = userMapper.selectByEmail("10446627@qq.com");
         System.out.println(user);
     }
 
     @Test
-    public void selectUserById() {
+    public void testSelectUserById() {
         User user = userMapper.selectByPhone("18667905583");
         if (user != null) {
             User newUser = userMapper.selectById(user.getId());
@@ -53,6 +53,18 @@ public class UserMapperTest {
     public void testGetAll() {
         List<User> users = userMapper.getAll();
         System.out.println(users);
+    }
+
+
+    @Test
+    public void testUpdate() {
+        User user = userMapper.selectByPhone("18667905583");
+        user.setUpdated(new Date());
+        user.setAvatarUrl("http://swing1993.cn/avatar.png");
+        user.setUserDesc("Super Man");
+        user.setNickname("SuperMan");
+        user.setSex(1);
+        userMapper.update(user);
     }
 
     @Test

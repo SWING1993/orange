@@ -29,23 +29,23 @@ public class UserController {
         return RestResultGenerator.genSuccessResult();
     }
 
-//    @PutMapping("/user")
-//    public RestResult<User> updateUser(@RequestParam(value = "id") long id,
-//                                 @RequestParam(value = "email", required = false) String email,
-//                                 @RequestParam(value = "nickname", required = false) String nickname,
-//                                 @RequestParam(value = "sex", required = false, defaultValue = "0") byte sex,
-//                                 @RequestParam(value = "avatarUrl", required = false) String avatarUrl,
-//                                 @RequestParam(value = "userDesc", required = false) String userDesc) {
-//        User user = this.userRepository.findById(id);
-//        user.setEmail(email);
-//        user.setNickname(nickname);
-//        user.setSex(sex);
-//        user.setAvatarUrl(avatarUrl);
-//        user.setUserDesc(userDesc);
-//        user.setUpdated(new Date());
-//        this.userRepository.save(user);
-//        return RestResultGenerator.genSuccessResult(user);
-//    }
+    @PutMapping("/user")
+    public RestResult<User> updateUser(@RequestParam(value = "id") long id,
+                                 @RequestParam(value = "email", required = false) String email,
+                                 @RequestParam(value = "nickname", required = false) String nickname,
+                                 @RequestParam(value = "sex", required = false, defaultValue = "0") byte sex,
+                                 @RequestParam(value = "avatarUrl", required = false) String avatarUrl,
+                                 @RequestParam(value = "userDesc", required = false) String userDesc) {
+        User user = this.userMapper.selectById(id);
+        user.setEmail(email);
+        user.setNickname(nickname);
+        user.setSex(sex);
+        user.setAvatarUrl(avatarUrl);
+        user.setUserDesc(userDesc);
+        user.setUpdated(new Date());
+        this.userMapper.update(user);
+        return RestResultGenerator.genSuccessResult(user);
+    }
 
     @GetMapping("/user")
     public RestResult<User> finUserById(@RequestParam(value = "id") Long id) {

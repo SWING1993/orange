@@ -25,7 +25,7 @@ public class User implements Serializable {
 
     private String nickname;
 
-    private Byte sex;
+    private int sex;
 
     private String avatarUrl;
 
@@ -100,11 +100,11 @@ public class User implements Serializable {
         this.nickname = nickname;
     }
 
-    public Byte getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -131,9 +131,6 @@ public class User implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
-
-
-
 
     @Override
     public String toString() {
