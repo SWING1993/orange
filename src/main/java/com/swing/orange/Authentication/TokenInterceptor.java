@@ -1,11 +1,8 @@
 package com.swing.orange.Authentication;
 
 import com.google.gson.Gson;
-import com.swing.orange.dao.UserDao;
-import com.swing.orange.entity.User;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
-import com.swing.orange.utils.Signature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,14 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TokenInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private UserDao userRepository;
+//    @Autowired
+//    private UserDao userRepository;
 
     private final ArrayList<String> urls = new ArrayList<String>(){{
         add("/");
