@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ public class MyHttpClientUtils {
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
             Gson gson = new Gson();
             RestResult result = gson.fromJson(content, RestResult.class);
-            System.out.println("getHandle："+result);
+            System.out.println("getHandle response:" + result);
             return result;
         }
         return RestResultGenerator.genErrorResult("xyz服务器异常");
@@ -70,7 +69,7 @@ public class MyHttpClientUtils {
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
             Gson gson = new Gson();
             RestResult result = gson.fromJson(content, RestResult.class);
-            System.out.println("postHandle："+result);
+            System.out.println("postHandle response :"+result);
             return result;
         }
         return RestResultGenerator.genErrorResult("xyz服务器异常");

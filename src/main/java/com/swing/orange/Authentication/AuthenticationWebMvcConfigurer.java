@@ -12,5 +12,4 @@ public class AuthenticationWebMvcConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(new TokenInterceptor());
     }
 
-
 }

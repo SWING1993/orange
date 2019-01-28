@@ -1,37 +1,34 @@
 package com.swing.orange.controller;
 
 import com.swing.orange.entity.User;
+import com.swing.orange.mapper.UserMapper;
 import com.swing.orange.utils.Md5;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
 
 @RestController
 public class UserController {
 
-//    @Autowired
-//    private UserDao userRepository;
-//
-//    private static final String passwdSalt = "xxzz00";
-//
-//    @PostMapping("/user/register")
-//    public RestResult saveUser(@RequestParam(value = "phone") String phone ,@RequestParam(value = "password") String password) {
-//        Date date = new Date();
-//        userRepository.save(new User(phone, Md5.getMd5(password, passwdSalt), date));
-//        return RestResultGenerator.genSuccessResult();
-//    }
-//
-//    @DeleteMapping("/user")
-//    public RestResult deleteUser(@RequestParam(value = "uid") long uid){
-//        User user = this.userRepository.findById(uid);
-//        System.out.println("deleteUser: " + user);
-//        this.userRepository.delete(user);
-//        return RestResultGenerator.genSuccessResult();
-//    }
-//
+    @Autowired
+    private UserMapper userMapper;
+
+    private static final String passwdSalt = "orange_password";
+
+    @PostMapping("/user/register")
+    public RestResult saveUser(@RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password) {
+        userMapper.insert(new User(phone, email, Md5.getMd5(password, passwdSalt), new Date()));
+        return RestResultGenerator.genSuccessResult();
+    }
+
+    @DeleteMapping("/user")
+    public RestResult deleteUser(@RequestParam(value = "uid") Long uid){
+        this.userMapper.deleteById(uid);
+        return RestResultGenerator.genSuccessResult();
+    }
+
 //    @PutMapping("/user")
 //    public RestResult<User> updateUser(@RequestParam(value = "id") long id,
 //                                 @RequestParam(value = "email", required = false) String email,
@@ -49,10 +46,10 @@ public class UserController {
 //        this.userRepository.save(user);
 //        return RestResultGenerator.genSuccessResult(user);
 //    }
-//
-//    @GetMapping("/user")
-//    public RestResult<User> finUserById(@RequestParam(value = "id") long id) {
-//        User user = this.userRepository.findById(id);
-//        return RestResultGenerator.genSuccessResult(user);
-//    }
+
+    @GetMapping("/user")
+    public RestResult<User> finUserById(@RequestParam(value = "id") Long id) {
+        User user = this.userMapper.selectById(id);
+        return RestResultGenerator.genSuccessResult(user);
+    }
 }

@@ -7,10 +7,10 @@ spring:
       enabled: true
 
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/orange?useUnicode=true&characterEncoding=utf-8
     username: root
     password: song.1005
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
   mail:
     host: smtp.qq.com
@@ -29,6 +29,8 @@ spring:
   application:
     name: orange
 
+mybatis:
+  type-aliases-package: com.swing.orange.entity
 
 mail.fromMail.addr: superme@swing1993.cn
 
