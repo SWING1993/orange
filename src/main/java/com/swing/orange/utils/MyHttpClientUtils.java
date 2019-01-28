@@ -6,6 +6,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
@@ -34,7 +35,9 @@ public class MyHttpClientUtils {
 
     public static RestResult postHandle(String url, List<? extends NameValuePair> parameters) throws Exception {
         HttpClient httpclient = HttpClients.createDefault();
-        StringBuilder paramStr = new StringBuilder("?");
+        HttpPost httpPost = new HttpPost(url);
+
+        StringBuilder paramStr = new StringBuilder();
         Map<String, Object> map = new HashMap<String, Object>();
         for (int i = 0; i < parameters.size(); i ++) {
             NameValuePair nameValuePair = parameters.get(i);
@@ -45,18 +48,23 @@ public class MyHttpClientUtils {
             }
         }
         System.out.println("postHandle paramStr :" + paramStr);
-        HttpPost httpPost = new HttpPost(url+paramStr);
-        httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
-        httpPost.addHeader(Signature.SIGN_KEY, Signature.createSign(map));
         /*
         List<NameValuePair> parameters = new ArrayList<NameValuePair>(0);
         parameters.add(new BasicNameValuePair("scope", "project"));
         parameters.add(new BasicNameValuePair("q", "java"));
-        // 构造一个form表单式的实体
-        UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
-        // 将请求实体设置到httpPost对象中
-        httpPost.setEntity(formEntity);
         */
+        // 构造一个form表单式的实体
+        // UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
+        // 将请求实体设置到httpPost对象中
+        // httpPost.setEntity(formEntity);
+
+        StringEntity stringEntity = new StringEntity(paramStr.toString(), "UTF-8");
+        stringEntity.setContentType("application/x-www-form-urlencoded");
+        httpPost.setEntity(stringEntity);
+
+        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+        httpPost.addHeader(Signature.SIGN_KEY, Signature.createSign(map));
+
         HttpResponse response = httpclient.execute(httpPost);
         if (response != null) {
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
