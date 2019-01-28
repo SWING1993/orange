@@ -4,17 +4,16 @@ import com.google.gson.Gson;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HttpClientUtils {
+public class MyHttpClientUtils {
 
     public static RestResult getHandle(String url) throws Exception {
         HttpClient httpclient = HttpClients.createDefault();
@@ -35,24 +34,29 @@ public class HttpClientUtils {
 
     public static RestResult postHandle(String url, List<? extends NameValuePair> parameters) throws Exception {
         HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(url);
-        httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
-
+        StringBuilder paramStr = new StringBuilder("?");
         Map<String, Object> map = new HashMap<String, Object>();
         for (int i = 0; i < parameters.size(); i ++) {
             NameValuePair nameValuePair = parameters.get(i);
             map.put(nameValuePair.getName(), nameValuePair.getValue());
+            paramStr.append(nameValuePair.getName() + "=" + nameValuePair.getValue());
+            if (i != parameters.size() - 1) {
+                paramStr.append("&");
+            }
         }
+        System.out.println("postHandle paramStr :" + paramStr);
+        HttpPost httpPost = new HttpPost(url+paramStr);
+        httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
         httpPost.addHeader(Signature.SIGN_KEY, Signature.createSign(map));
         /*
         List<NameValuePair> parameters = new ArrayList<NameValuePair>(0);
         parameters.add(new BasicNameValuePair("scope", "project"));
         parameters.add(new BasicNameValuePair("q", "java"));
-        */
         // 构造一个form表单式的实体
         UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
         // 将请求实体设置到httpPost对象中
         httpPost.setEntity(formEntity);
+        */
         HttpResponse response = httpclient.execute(httpPost);
         if (response != null) {
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");

@@ -1,6 +1,6 @@
 package com.swing.orange.controller;
 
-import com.swing.orange.utils.HttpClientUtils;
+import com.swing.orange.utils.MyHttpClientUtils;
 import com.swing.orange.utils.RestResult;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -18,12 +18,12 @@ public class ASFController {
 
     @GetMapping("/asf/findBots")
     public RestResult findBots() throws Exception {
-        return HttpClientUtils.getHandle( url + "/asf/findBots");
+        return MyHttpClientUtils.getHandle( url + "/asf/findBots");
     }
 
     @GetMapping("/asf/logs")
     public RestResult findLogs() throws Exception {
-        return HttpClientUtils.getHandle( url + "/asf/logs");
+        return MyHttpClientUtils.getHandle( url + "/asf/logs");
     }
 
     @PostMapping("/asf/save")
@@ -31,7 +31,7 @@ public class ASFController {
         ArrayList<NameValuePair> parameters = new ArrayList<NameValuePair>(0);
         parameters.add(new BasicNameValuePair("filename", filename));
         parameters.add(new BasicNameValuePair("content", content));
-        return HttpClientUtils.postHandle(url + "/asf/save", parameters);
+        return MyHttpClientUtils.postHandle(url + "/asf/save", parameters);
     }
 
 }
