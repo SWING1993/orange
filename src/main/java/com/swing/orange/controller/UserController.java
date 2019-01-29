@@ -42,9 +42,31 @@ public class UserController {
         return RestResultGenerator.genSuccessResult();
     }
 
-    @GetMapping("/user/login")
-    public RestResult login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password) {
+    @PostMapping("/user/login")
+    public RestResult login(@RequestParam(value = "phone") String phone,
+                            @RequestParam(value = "password") String password) {
+
+        User user = this.userMapper.selectByPhone(phone);
+        System.out.println("user:" + user);
+        if (user == null) {
+            return RestResultGenerator.genErrorResult("没有手机号码为" + phone + "的用户");
+        }
+        if (!user.getPassword().equals(Md5.getMd5(password, passwdSalt))) {
+            return RestResultGenerator.genErrorResult("密码错误！");
+        }
+        String token = JWTUtil.sign(String.valueOf(user.getId()), "token");
+        user.setToken(token);
+        return RestResultGenerator.genSuccessResult(user);
+    }
+
+    @PostMapping("/user/loginByEmail")
+    public RestResult loginByEmail(@RequestParam(value = "email") String email,
+                                   @RequestParam(value = "password") String password) {
+
         User user = this.userMapper.selectByEmail(email);
+        if (user == null) {
+            return RestResultGenerator.genErrorResult("没有邮箱为" + email + "的用户");
+        }
         if (!user.getPassword().equals(Md5.getMd5(password, passwdSalt))) {
             return RestResultGenerator.genErrorResult("密码错误！");
         }
@@ -57,7 +79,7 @@ public class UserController {
     public RestResult refreshToekn(@RequestHeader(value = "uid") String uid) {
         String token = JWTUtil.sign(uid, "token");
         HashMap map = new HashMap();
-        map.put("access_token", token);
+        map.put("token", token);
         return RestResultGenerator.genSuccessResult(map);
     }
 
@@ -69,11 +91,11 @@ public class UserController {
 
     @PutMapping("/user")
     public RestResult<User> updateUser(@RequestParam(value = "id") long id,
-                                 @RequestParam(value = "email", required = false) String email,
-                                 @RequestParam(value = "nickname", required = false) String nickname,
-                                 @RequestParam(value = "sex", required = false, defaultValue = "0") byte sex,
-                                 @RequestParam(value = "avatarUrl", required = false) String avatarUrl,
-                                 @RequestParam(value = "userDesc", required = false) String userDesc) {
+                                       @RequestParam(value = "email", required = false) String email,
+                                       @RequestParam(value = "nickname", required = false) String nickname,
+                                       @RequestParam(value = "sex", required = false, defaultValue = "0") byte sex,
+                                       @RequestParam(value = "avatarUrl", required = false) String avatarUrl,
+                                       @RequestParam(value = "userDesc", required = false) String userDesc) {
         User user = this.userMapper.selectById(id);
         user.setEmail(email);
         user.setNickname(nickname);

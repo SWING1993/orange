@@ -1,6 +1,7 @@
 package com.swing.orange.Authentication;
 
 import com.google.gson.Gson;
+import com.swing.orange.utils.DingChatBot;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -36,14 +37,15 @@ public class TokenInterceptor implements HandlerInterceptor {
             return false;
         }
         */
+        DingChatBot.sendMsg(request.getRequestURI());
 
         if (urls.contains(request.getRequestURI())) {
             return true;
         }
         // 验证token
-        String access_token = request.getHeader("access_token");
-        if (access_token == null) {
-            responseMessage(response, response.getWriter(),10002, "access_token不能为空");
+        String token = request.getHeader("token");
+        if (token == null) {
+            responseMessage(response, response.getWriter(),10002, "token不能为空");
             return false;
         }
 
@@ -53,13 +55,13 @@ public class TokenInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        int verify = JWTUtil.verify(access_token, uid, "token");
+        int verify = JWTUtil.verify(token, uid, "token");
         if (verify == 1) {
-            responseMessage(response, response.getWriter(),10003, "access_token已过期，需要刷新");
+            responseMessage(response, response.getWriter(),10003, "token已过期，需要刷新");
             return false;
         }
         if (verify > 1) {
-            responseMessage(response, response.getWriter(),10003, "access_token无效");
+            responseMessage(response, response.getWriter(),10003, "token无效");
             return false;
         }
         return true;
