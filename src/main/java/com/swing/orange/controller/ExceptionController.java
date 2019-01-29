@@ -16,7 +16,7 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public RestResult<String> globalException(HttpServletRequest request, Throwable ex) throws Exception {
-        String error = this.getStatus(request) + ex.getMessage();
+        String error = this.getStatus(request)+ "  " + ex.getMessage();
         DingChatBot.sendMsg(error);
         return RestResultGenerator.genErrorResult(error);
     }

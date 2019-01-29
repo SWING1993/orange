@@ -20,7 +20,7 @@ public class JWTUtil {
      * 生成签名,5min后过期
      *
      * @param uid 用户名
-     * @param secret   用户的密码
+     * @param secret 用户的密码
      * @return 加密的token
      */
     public static String sign(String uid, String secret) {

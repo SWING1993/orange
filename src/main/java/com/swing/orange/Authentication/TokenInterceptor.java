@@ -3,7 +3,6 @@ package com.swing.orange.Authentication;
 import com.google.gson.Gson;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
@@ -13,19 +12,14 @@ import java.util.ArrayList;
 
 public class TokenInterceptor implements HandlerInterceptor {
 
-//    @Autowired
-//    private UserDao userRepository;
-
     private final ArrayList<String> urls = new ArrayList<String>(){{
-        add("/");
-        add("/user/login");
+        add("/user/authCode");
         add("/user/register");
+        add("/user/login");
     }};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        return true;
 
         /*
         // 先验证签名
@@ -41,25 +35,34 @@ public class TokenInterceptor implements HandlerInterceptor {
             responseMessage(response, response.getWriter(),10002, "签名错误");
             return false;
         }
+        */
 
         if (urls.contains(request.getRequestURI())) {
             return true;
         }
-        // 然后验证token
-        String token = request.getHeader("token");
+        // 验证token
+        String access_token = request.getHeader("access_token");
+        if (access_token == null) {
+            responseMessage(response, response.getWriter(),10002, "access_token不能为空");
+            return false;
+        }
+
         String uid = request.getHeader("uid");
-        if (this.preAuthenticationHandle(response, token, uid) == false) {
+        if (uid == null) {
+            responseMessage(response, response.getWriter(),10002, "uid为不能为空");
             return false;
         }
-        User user = this.userRepository.findById(Integer.valueOf(uid));
-        if (JWTUtil.verify(token, uid, user.getPassword())) {
-            return true;
-        } else {
-            System.out.println("token已失效");
-            responseMessage(response, response.getWriter(),10002, "token已失效");
+
+        if (!JWTUtil.getUid(access_token).equals(uid)) {
+            responseMessage(response, response.getWriter(),10002, "access_token错误");
             return false;
         }
-        */
+
+        if (!JWTUtil.verify(access_token, uid, "token")) {
+            responseMessage(response, response.getWriter(),10002, "access_token已失效");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -70,19 +73,6 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception arg3) throws Exception {
 
-    }
-
-    private boolean preAuthenticationHandle(HttpServletResponse response, String token, String uid) throws Exception {
-        if (token == null) {
-            responseMessage(response, response.getWriter(),10002, "token为null");
-            return false;
-        }
-
-        if (uid == null) {
-            responseMessage(response, response.getWriter(),10002, "uid为null");
-            return false;
-        }
-        return true;
     }
 
     private void responseMessage(HttpServletResponse response, PrintWriter out, int code, String error) {
