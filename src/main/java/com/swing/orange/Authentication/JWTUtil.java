@@ -3,6 +3,8 @@ package com.swing.orange.Authentication;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,13 +42,19 @@ public class JWTUtil {
      * @param secret 用户的密码
      * @return 是否正确
      */
-    public static boolean verify(String token, String uid, String secret) {
+    public static int verify(String token, String uid, String secret) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         JWTVerifier verifier = JWT.require(algorithm)
                 .withClaim(claimKey, uid)
                 .build();
-        DecodedJWT jwt = verifier.verify(token);
-        return true;
+        try {
+            verifier.verify(token);
+        } catch (TokenExpiredException ex) {
+            return 1;
+        } catch (JWTVerificationException ex) {
+            return 2;
+        }
+        return 0;
     }
 
     /**

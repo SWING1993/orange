@@ -53,13 +53,13 @@ public class TokenInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        if (!JWTUtil.getUid(access_token).equals(uid)) {
-            responseMessage(response, response.getWriter(),10002, "access_token错误");
+        int verify = JWTUtil.verify(access_token, uid, "token");
+        if (verify == 1) {
+            responseMessage(response, response.getWriter(),10003, "access_token已过期，需要刷新");
             return false;
         }
-
-        if (!JWTUtil.verify(access_token, uid, "token")) {
-            responseMessage(response, response.getWriter(),10002, "access_token已失效");
+        if (verify > 1) {
+            responseMessage(response, response.getWriter(),10003, "access_token无效");
             return false;
         }
         return true;

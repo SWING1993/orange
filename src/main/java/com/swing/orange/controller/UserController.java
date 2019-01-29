@@ -53,6 +53,14 @@ public class UserController {
         return RestResultGenerator.genSuccessResult(user);
     }
 
+    @GetMapping("/user/refreshToekn")
+    public RestResult refreshToekn(@RequestHeader(value = "uid") String uid) {
+        String token = JWTUtil.sign(uid, "token");
+        HashMap map = new HashMap();
+        map.put("access_token", token);
+        return RestResultGenerator.genSuccessResult(map);
+    }
+
     @DeleteMapping("/user")
     public RestResult deleteUser(@RequestParam(value = "uid") Long uid){
         this.userMapper.deleteById(uid);
@@ -86,7 +94,7 @@ public class UserController {
 
     public String achieveCode() {
         /*
-        //由于数字1 和0 和字母 O,l 有时分不清，所有，没有字母1 、0
+        // 由于数字1 和0 和字母 O,l 有时分不清，所有，没有字母1 、0
         String[] beforeShuffle= new String[] { "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F",
                 "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a",
                 "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
@@ -94,9 +102,9 @@ public class UserController {
         */
         String[] beforeShuffle= new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
         List list = Arrays.asList(beforeShuffle);
-        //将数组转换为集合
+        // 将数组转换为集合
         Collections.shuffle(list);
-        //打乱集合顺序
+        // 打乱集合顺序
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i)); //将集合转化为字符串
