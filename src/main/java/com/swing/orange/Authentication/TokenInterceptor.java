@@ -9,15 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 public class TokenInterceptor implements HandlerInterceptor {
-
-    private final ArrayList<String> urls = new ArrayList<String>(){{
-        add("/user/authCode");
-        add("/user/register");
-        add("/user/login");
-    }};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,11 +30,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             return false;
         }
         */
-        DingChatBot.sendMsg(request.getRequestURI());
 
-        if (urls.contains(request.getRequestURI())) {
-            return true;
-        }
         // 验证token
         String token = request.getHeader("token");
         if (token == null) {
@@ -56,10 +45,12 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         int verify = JWTUtil.verify(token, uid, "token");
+
         if (verify == 1) {
             responseMessage(response, response.getWriter(),10003, "token已过期，需要刷新");
             return false;
         }
+
         if (verify > 1) {
             responseMessage(response, response.getWriter(),10003, "token无效");
             return false;

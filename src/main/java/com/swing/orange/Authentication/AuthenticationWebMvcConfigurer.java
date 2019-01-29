@@ -9,7 +9,7 @@ public class AuthenticationWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new TokenInterceptor());
+        registry.addInterceptor(new TokenInterceptor()).excludePathPatterns("/", "/user/authCode", "/user/register", "/user/login");
     }
 
 }
