@@ -49,7 +49,6 @@ public class TokenInterceptor implements HandlerInterceptor {
             return false;
         }
 
-
         User user = this.userMapper.selectById(Long.valueOf(uid));
         int verify = JWTUtil.verify(token, uid, user.getPassword());
 
@@ -78,7 +77,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     private void responseMessage(HttpServletResponse response, PrintWriter out, int code, String error) {
         response.setCharacterEncoding("utf-8");
         response.setContentType("application/json; charset=utf-8");
-        RestResult result = RestResultGenerator.genErrorResult("403，认证不通过", code,error);
+        RestResult result = RestResultGenerator.genErrorResult("认证不通过", code,error);
         Gson gson = new Gson();
         out.print(gson.toJson(result));
         out.flush();
