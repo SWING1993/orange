@@ -1,9 +1,11 @@
 package com.swing.orange.Authentication;
 
 import com.google.gson.Gson;
-import com.swing.orange.utils.DingChatBot;
+import com.swing.orange.entity.User;
+import com.swing.orange.mapper.UserMapper;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 public class TokenInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -44,7 +49,9 @@ public class TokenInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        int verify = JWTUtil.verify(token, uid, "token");
+
+        User user = this.userMapper.selectById(Long.valueOf(uid));
+        int verify = JWTUtil.verify(token, uid, user.getPassword());
 
         if (verify == 1) {
             responseMessage(response, response.getWriter(),10003, "token已过期，需要刷新");

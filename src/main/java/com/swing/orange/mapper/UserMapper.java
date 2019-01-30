@@ -5,11 +5,11 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface UserMapper {
-
 
     @Insert("INSERT INTO user_tbl (phone, email, password, created) VALUES (#{phone}, #{email}, #{password}, #{created})")
     void insert(User user);
