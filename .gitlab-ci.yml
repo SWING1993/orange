@@ -1,21 +1,22 @@
 stages:
   - build
-  - deploy
 
 build:
   stage: build
+  before_script:
+    - echo "before_script begin!"
+    - mvn clean
   script:
     - echo "build begin!"
-    - mvn clean
     - mvn package
     - echo "build success!"
+  after_script:
+    - echo "after_script begin!"
+    - /usr/local/tomcat/bin/shutdown.sh
+    - rm -rf /usr/local/tomcat/webapps/orange*
+    - cp target/orange.war /usr/local/tomcat/webapps/
+    - /usr/local/tomcat/bin/startup.sh
+    - echo "deploy success!"
   tags:
     - my-tag
-
-deploy:
-  stage: deploy
-  script:
-    - echo "deploy begin!"
-    - cp target/orange.war /root/
-    - echo "deploy success!"
 
