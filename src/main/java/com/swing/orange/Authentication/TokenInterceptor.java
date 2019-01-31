@@ -39,13 +39,13 @@ public class TokenInterceptor implements HandlerInterceptor {
         // 验证token
         String token = request.getHeader("token");
         if (token == null) {
-            responseMessage(response, response.getWriter(),10002, "token不能为空");
+            responseMessage(response, response.getWriter(),10001, "token不能为空");
             return false;
         }
 
         String uid = request.getHeader("uid");
         if (uid == null) {
-            responseMessage(response, response.getWriter(),10002, "uid为不能为空");
+            responseMessage(response, response.getWriter(),10001, "uid为不能为空");
             return false;
         }
 
@@ -58,7 +58,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         if (verify > 1) {
-            responseMessage(response, response.getWriter(),10003, "token无效");
+            responseMessage(response, response.getWriter(),10002, "token无效");
             return false;
         }
         return true;
