@@ -1,5 +1,7 @@
 package com.swing.orange.controller;
 
+import com.swing.orange.utils.RestResult;
+import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
 
     @GetMapping("/")
-    public String index() {
-        return "Hello World Orz --- !!!";
+    public RestResult index() {
+        return RestResultGenerator.genSuccessResult("Hello World !");
     }
 }
