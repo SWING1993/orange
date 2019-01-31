@@ -6,18 +6,19 @@ build:
   before_script:
     - echo "before_script begin!"
     - mvn clean
+    - mvn install
   script:
     - echo "build begin!"
     - mvn package
     - echo "build success!"
   after_script:
     - echo "after_script begin!"
-    - sudo /usr/local/tomcat/bin/shutdown.sh
-    - sleep 3s
+#    - sudo /usr/local/tomcat/bin/shutdown.sh
+#    - sleep 3s
     - rm -rf /usr/local/tomcat/webapps/orange*
     - cp target/orange.war /usr/local/tomcat/webapps/
-    - sleep 3s
-    - sudo /usr/local/tomcat/bin/startup.sh
+#    - sleep 3s
+#    - sudo /usr/local/tomcat/bin/startup.sh
     - echo "deploy success!"
   tags:
     - my-tag
