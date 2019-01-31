@@ -1,0 +1,21 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "build begin!"
+    - mvn clean
+    - mvn package
+    - echo "build success!"
+  tags:
+    - my-tag
+
+deploy:
+  stage: deploy
+  script:
+    - echo "deploy begin!"
+    - cp target/orange.war /root/
+    - echo "deploy success!"
+
