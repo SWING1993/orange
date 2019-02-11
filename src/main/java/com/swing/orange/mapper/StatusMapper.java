@@ -15,6 +15,9 @@ public interface StatusMapper {
             "(#{uid}, #{type}, #{avatar}, #{avatarUrl}, #{content}, #{imageUrls}, #{vedioUrl}, #{created}, #{fromDevice})")
     void insert(Status status);
 
+    @Select("SELECT * FROM status_tbl WHERE id = #{id}")
+    Status selectById(long id);
+
     @Select("SELECT * FROM status_tbl")
     List<Status> getAll();
 

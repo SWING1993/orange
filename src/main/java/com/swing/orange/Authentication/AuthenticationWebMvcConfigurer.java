@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootConfiguration
 public class AuthenticationWebMvcConfigurer implements WebMvcConfigurer {
 
-
     @Bean
     TokenInterceptor tokenInterceptor() {
         return new TokenInterceptor();

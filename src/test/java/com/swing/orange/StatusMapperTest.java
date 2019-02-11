@@ -1,7 +1,9 @@
 package com.swing.orange;
 
 import com.swing.orange.entity.Status;
+import com.swing.orange.entity.User;
 import com.swing.orange.mapper.StatusMapper;
+import com.swing.orange.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,13 @@ public class StatusMapperTest {
     @Autowired
     StatusMapper statusMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Test
     public void insertTest() {
-        Status status = new Status(36, 0, "CC", "https://cc.png", "哈哈，今天捡了100w人民币", "", "", 0, "iPhone X");
+        User user = this.userMapper.getAll().get(0);
+        Status status = new Status(user.getId(), 0, "CC", "https://cc.png", "哈哈，今天捡了100w人民币", "", "", 0, "iPhone X");
         this.statusMapper.insert(status);
     }
 

@@ -19,6 +19,9 @@ public class Status implements Serializable {
     private long created;
     private String fromDevice;
 
+
+
+
     public Status() {
         super();
     }

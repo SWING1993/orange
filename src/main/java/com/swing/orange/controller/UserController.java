@@ -34,10 +34,10 @@ public class UserController {
 
     @PostMapping("/user/register")
     public RestResult saveUser(@RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password, @RequestParam(value = "authCode") String authCode) {
-        if (!this.authCodeMap.get(email).equals(authCode)) {
-            return RestResultGenerator.genErrorResult("验证码错误！");
-        }
-        authCodeMap.remove(email);
+//        if (!this.authCodeMap.get(email).equals(authCode)) {
+//            return RestResultGenerator.genErrorResult("验证码错误！");
+//        }
+//        authCodeMap.remove(email);
         userMapper.insert(new User(phone, email, Md5.getMd5(password, passwdSalt), new Date()));
         return RestResultGenerator.genSuccessResult();
     }
@@ -62,7 +62,6 @@ public class UserController {
     @PostMapping("/user/loginByEmail")
     public RestResult loginByEmail(@RequestParam(value = "email") String email,
                                    @RequestParam(value = "password") String password) {
-
         User user = this.userMapper.selectByEmail(email);
         if (user == null) {
             return RestResultGenerator.genErrorResult("没有邮箱为" + email + "的用户");
@@ -70,8 +69,7 @@ public class UserController {
         if (!user.getPassword().equals(Md5.getMd5(password, passwdSalt))) {
             return RestResultGenerator.genErrorResult("密码错误！");
         }
-        String token = JWTUtil.sign(String.valueOf(user.getId()), user.getPassword());
-        user.setToken(token);
+        user.setToken(JWTUtil.sign(String.valueOf(user.getId()), user.getPassword()));
         return RestResultGenerator.genSuccessResult(user);
     }
 

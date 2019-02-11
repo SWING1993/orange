@@ -10,6 +10,5 @@ public class OrangeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(com.swing.orange.OrangeApplication.class, args);
 	}
-
 }
 

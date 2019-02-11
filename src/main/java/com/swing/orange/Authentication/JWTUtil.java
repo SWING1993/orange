@@ -29,10 +29,12 @@ public class JWTUtil {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
         // 附带uid信息
-        return JWT.create()
+        String token = JWT.create()
                 .withClaim(claimKey, uid)
                 .withExpiresAt(date)
                 .sign(algorithm);
+        loger.info("token: " +token);
+        return token;
     }
 
     /**
