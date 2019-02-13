@@ -112,7 +112,6 @@ public class UserController {
         return RestResultGenerator.genSuccessResult(user);
     }
 
-
     public String achieveCode() {
         /*
         // 由于数字1 和0 和字母 O,l 有时分不清，所有，没有字母1 、0
