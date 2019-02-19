@@ -41,6 +41,4 @@ public class StatusController {
         }
         return RestResultGenerator.genErrorResult("删除失败");
     }
-
-
 }

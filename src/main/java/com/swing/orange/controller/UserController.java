@@ -114,7 +114,7 @@ public class UserController {
 
     public String achieveCode() {
         /*
-        // 由于数字1 和0 和字母 O,l 有时分不清，所有，没有字母1 、0
+        // 由于数字1,0 和字母O,l 有时分不清，所有没有字母1 、0
         String[] beforeShuffle= new String[] { "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F",
                 "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a",
                 "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
