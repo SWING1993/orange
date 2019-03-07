@@ -49,8 +49,9 @@ public class MessageController {
         }
     }
 
-    public RestResult<Message> messageList(@RequestHeader(value = "uid") long uid) {
-        List list = this.messageMapper.g
+    public RestResult<List> messageList(@RequestHeader(value = "uid") long uid) {
+        List list = this.messageMapper.selectByUid(uid);
+        return RestResultGenerator.genSuccessResult(list);
     }
 
 }
