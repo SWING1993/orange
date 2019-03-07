@@ -14,8 +14,7 @@ public class JWTUtil {
 
     private static final Logger loger = LoggerFactory.getLogger(JWTUtil.class);
 
-    // 过期时间60分钟*24 = 1天
-    private static final long EXPIRE_TIME = 24 * 60 * 60 * 1000;
+    private static final long EXPIRE_TIME = 365 * 24 * 60 * 60 * 1000;
     private static final String claimKey = "uid";
 
     /**
