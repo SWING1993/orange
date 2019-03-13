@@ -13,8 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 封装的调用另一台服务器的http请求工具
 public class MyHttpClientUtils {
 
+    // 发送get请求
     public static RestResult getHandle(String url) throws Exception {
         HttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
@@ -32,6 +34,7 @@ public class MyHttpClientUtils {
         return RestResultGenerator.genErrorResult("xyz服务器异常");
     }
 
+    // 发送post请求
     public static RestResult postHandle(String url, List<? extends NameValuePair> parameters) throws Exception {
         HttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);

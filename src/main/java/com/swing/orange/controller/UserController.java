@@ -24,6 +24,7 @@ public class UserController {
 
     private static final String passwdSalt = "orange_password";
 
+    // 获取验证码
     @GetMapping("/user/authCode")
     public RestResult getAuthCode(@RequestParam(value = "email") String email) {
         String authCode = this.achieveCode();
@@ -32,6 +33,7 @@ public class UserController {
         return RestResultGenerator.genSuccessResult();
     }
 
+    // 注册
     @PostMapping("/user/register")
     public RestResult saveUser(@RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password, @RequestParam(value = "authCode") String authCode) {
 //        if (!this.authCodeMap.get(email).equals(authCode)) {
@@ -42,6 +44,7 @@ public class UserController {
         return RestResultGenerator.genSuccessResult();
     }
 
+    // phone登录
     @PostMapping("/user/login")
     public RestResult login(@RequestParam(value = "phone") String phone,
                             @RequestParam(value = "password") String password) {
@@ -59,6 +62,7 @@ public class UserController {
         return RestResultGenerator.genSuccessResult(user);
     }
 
+    // email登录
     @PostMapping("/user/loginByEmail")
     public RestResult loginByEmail(@RequestParam(value = "email") String email,
                                    @RequestParam(value = "password") String password) {
@@ -73,6 +77,7 @@ public class UserController {
         return RestResultGenerator.genSuccessResult(user);
     }
 
+    // 刷新用户token,
     @GetMapping("/user/refreshToekn")
     public RestResult refreshToekn(@RequestHeader(value = "uid") String uid) {
         User user = this.userMapper.selectById(Long.valueOf(uid));
@@ -82,12 +87,14 @@ public class UserController {
         return RestResultGenerator.genSuccessResult(map);
     }
 
+    // 删除用户
     @DeleteMapping("/user")
     public RestResult deleteUser(@RequestParam(value = "uid") Long uid){
         this.userMapper.deleteById(uid);
         return RestResultGenerator.genSuccessResult();
     }
 
+    // 修改用户资料
     @PutMapping("/user")
     public RestResult<User> updateUser(@RequestParam(value = "id") long id,
                                        @RequestParam(value = "email", required = false) String email,
@@ -106,12 +113,14 @@ public class UserController {
         return RestResultGenerator.genSuccessResult(user);
     }
 
+    // 根据id查询用户资料
     @GetMapping("/user")
     public RestResult<User> finUserById(@RequestParam(value = "id") Long id) {
         User user = this.userMapper.selectById(id);
         return RestResultGenerator.genSuccessResult(user);
     }
 
+    // 生成一个随机的4位验证码
     public String achieveCode() {
         /*
         // 由于数字1,0 和字母O,l 有时分不清，所有没有字母1 、0

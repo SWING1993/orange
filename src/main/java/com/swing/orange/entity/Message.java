@@ -5,10 +5,15 @@ import java.io.Serializable;
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // 消息id
     private long id;
+    // 用户id
     private long uid;
+    // 消息类型
     private int type;
+    // 消息内容
     private String content;
+    // 创建时间
     private long created;
 
     public Message(long uid, int type, String content, long created) {

@@ -2,6 +2,7 @@ package com.swing.orange.utils;
 
 import java.util.*;
 
+// 参数签名工具类，防止参数别篡改
 public class Signature {
 
     // 签名参数的key

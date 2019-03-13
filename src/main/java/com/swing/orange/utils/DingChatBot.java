@@ -9,7 +9,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-
+// 钉钉消息机器人，推送异常到钉钉群里，省去查日志的麻烦，也可以推送别的消息。
 public class DingChatBot {
 
     public static String WEBHOOK_TOKEN = "https://oapi.dingtalk.com/robot/send?access_token=1fabf40fdf92b925fe0531fe98b42c7076e94c9ef76a45c4630d469ae8638528";

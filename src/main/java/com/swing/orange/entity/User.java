@@ -10,27 +10,38 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // 用户id
     private long id;
 
+    // 手机号码
     private String phone;
 
+    // 密码
     @JsonIgnore
     private String password;
 
+    // 邮箱
     private String email;
 
+    // 创建时间
     private Date created;
 
+    // 资料更新时间
     private Date updated;
 
+    // 昵称
     private String nickname;
 
+    // 性别
     private int sex;
 
+    // 头像
     private String avatarUrl;
 
+    // 用户描述
     private String userDesc;
 
+    // 用户token
     private String token;
 
     public User() {

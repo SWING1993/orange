@@ -1,5 +1,6 @@
 package com.swing.orange.utils;
 
+// rest 回调实体
 public class RestResult<T> {
 
     private boolean success;

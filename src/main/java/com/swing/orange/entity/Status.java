@@ -5,11 +5,9 @@ import java.io.Serializable;
 public class Status implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private long id;
     private long uid;
-
-    // 0 = 图文  1 = 视频
+    // 状态类型 0 = 图文  1 = 视频
     private int type;
     private String avatar;
     private String avatarUrl;
@@ -18,9 +16,6 @@ public class Status implements Serializable {
     private String vedioUrl;
     private long created;
     private String fromDevice;
-
-
-
 
     public Status() {
         super();
