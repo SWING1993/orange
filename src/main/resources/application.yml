@@ -31,5 +31,16 @@ spring:
 mybatis:
   type-aliases-package: com.swing.orange.entity
 
-mail.fromMail.addr: superme@swing1993.cn
+mapper:
+  not-empty: false
+  mappers:
+    - tk.mybatis.springboot.util.MyMapper
+  identity: MYSQL
 
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+mail.fromMail.addr: superme@swing1993.cn

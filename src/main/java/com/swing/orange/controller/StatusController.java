@@ -1,5 +1,6 @@
 package com.swing.orange.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.google.gson.Gson;
 import com.swing.orange.entity.Status;
 import com.swing.orange.mapper.StatusMapper;
@@ -27,7 +28,8 @@ public class StatusController {
     }
 
     @GetMapping("/status")
-    public RestResult statusList(@RequestHeader(value = "uid") int uid) {
+    public RestResult statusList(@RequestHeader(value = "uid") int uid, @RequestParam(value = "pageNum") int pageNum) {
+        PageHelper.startPage(pageNum, 20);
         List<Status> list = this.statusMapper.selectByUid(uid);
         return RestResultGenerator.genSuccessResult(list);
     }

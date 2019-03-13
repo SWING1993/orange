@@ -1,5 +1,6 @@
 package com.swing.orange.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.swing.orange.Authentication.JWTUtil;
 import com.swing.orange.entity.Message;
 import com.swing.orange.entity.User;
@@ -22,7 +23,8 @@ public class MessageController {
     @Autowired
     UserMapper userMapper;
 
-    @PostMapping("/message/send")
+    // 新增消息
+    @PostMapping("/message")
     public RestResult insertMessage(@RequestParam(value = "access_token") String access_token, @RequestBody String data) {
         System.out.println("access_token:" + access_token);
         System.out.println("data:" + data);
@@ -38,6 +40,15 @@ public class MessageController {
         }
     }
 
+    // 查询消息
+    @GetMapping("/message")
+    public RestResult<List> messageList(@RequestHeader(value = "uid") long uid, @RequestParam(value = "pageNum") int pageNum) {
+        PageHelper.startPage(pageNum, 20);
+        List list = this.messageMapper.selectByUid(uid);
+        return RestResultGenerator.genSuccessResult(list);
+    }
+
+    // 删除消息
     @DeleteMapping("/message")
     public RestResult deleteMessage(@RequestHeader(value = "uid") long uid, @RequestParam(value = "msgId") long msgId) {
         Message message = this.messageMapper.selectById(msgId);
@@ -47,11 +58,6 @@ public class MessageController {
         } else {
             return RestResultGenerator.genErrorResult("没有该条消息");
         }
-    }
-
-    public RestResult<List> messageList(@RequestHeader(value = "uid") long uid) {
-        List list = this.messageMapper.selectByUid(uid);
-        return RestResultGenerator.genSuccessResult(list);
     }
 
 }

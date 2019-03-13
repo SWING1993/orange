@@ -23,7 +23,6 @@ public interface MessageMapper {
     @Select("SELECT * FROM msg_tbl WHERE uid = #{uid}")
     List<Message> selectByUid(long uid);
 
-
     @Delete("DELETE FROM msg_tbl WHERE id = #{id}")
     void deleteById(long id);
 }
