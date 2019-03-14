@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 
 @RestController
 public class MessageController {
@@ -25,7 +24,7 @@ public class MessageController {
     UserMapper userMapper;
 
     // 新增消息
-    @PostMapping("/message")
+    @PostMapping("/message/send")
     public RestResult insertMessage(@RequestParam(value = "access_token") String access_token, @RequestBody String data) {
         System.out.println("access_token:" + access_token);
         System.out.println("data:" + data);
