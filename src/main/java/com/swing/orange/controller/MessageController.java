@@ -1,5 +1,6 @@
 package com.swing.orange.controller;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.swing.orange.Authentication.JWTUtil;
 import com.swing.orange.entity.Message;
@@ -42,10 +43,9 @@ public class MessageController {
 
     // 查询消息
     @GetMapping("/message")
-    public RestResult<List> messageList(@RequestHeader(value = "uid") long uid, @RequestParam(value = "pageNum") int pageNum) {
-        PageHelper.startPage(pageNum, 20);
-        List list = this.messageMapper.selectByUid(uid);
-        return RestResultGenerator.genSuccessResult(list);
+    public RestResult messageList(@RequestHeader(value = "uid") long uid, @RequestParam(value = "pageNum") int pageNum) {
+        Page<Message> page = PageHelper.startPage(pageNum, 20).doSelectPage(()-> this.messageMapper.selectByUid(uid));
+        return RestResultGenerator.genSuccessResult(page);
     }
 
     // 删除消息

@@ -39,8 +39,9 @@ mapper:
 
 pagehelper:
   helperDialect: mysql
-  reasonable: true
+  reasonable: false
   supportMethodsArguments: true
   params: count=countSql
+  page-size-zero: true
 
 mail.fromMail.addr: superme@swing1993.cn

@@ -1,9 +1,12 @@
 package com.swing.orange.utils;
 
+import com.github.pagehelper.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RestResultGenerator {
 
@@ -49,6 +52,15 @@ public class RestResultGenerator {
      */
     public static <T> RestResult<T> genSuccessResult(T data) {
         return genResult(true,data,"处理成功", 10000, "");
+    }
+
+    public static RestResult genSuccessResult(Page page) {
+        Map map = new HashMap();
+        map.put("pageSize", page.getPageSize());
+        map.put("total", page.getTotal());
+        map.put("pageNum", page.getPageNum());
+        map.put("list", page);
+        return genResult(true,map,"处理成功", 10000, "");
     }
 
     /**

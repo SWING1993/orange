@@ -48,7 +48,6 @@ public class UserController {
     @PostMapping("/user/login")
     public RestResult login(@RequestParam(value = "phone") String phone,
                             @RequestParam(value = "password") String password) {
-
         User user = this.userMapper.selectByPhone(phone);
         System.out.println("user:" + user);
         if (user == null) {
