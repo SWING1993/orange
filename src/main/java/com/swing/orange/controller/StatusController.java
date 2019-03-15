@@ -60,15 +60,7 @@ public class StatusController {
 
     @GetMapping("/status/all")
     public RestResult allStatusList(@RequestParam(value = "pageNum") int pageNum) {
-        Page<Status> page = PageHelper.startPage(pageNum, 20, "id desc").doSelectPage(()-> this.statusMapper.getAll());
-        for (int i = 0; i < page.size(); i++) {
-            Status status = page.get(i);
-            User user = this.userMapper.selectById(status.getUid());
-            if (user != null) {
-                status.setAvatarUrl(user.getAvatarUrl());
-                status.setNickname(user.getNickname());
-            }
-        }
+        Page<Status> page = PageHelper.startPage(pageNum, 20, "status_tbl.id desc").doSelectPage(()-> this.statusMapper.getAll());
         return RestResultGenerator.genSuccessResult(page);
     }
 }

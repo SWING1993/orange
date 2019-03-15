@@ -18,7 +18,7 @@ public interface StatusMapper {
     @Select("SELECT * FROM status_tbl WHERE id = #{id}")
     Status selectById(long id);
 
-    @Select("SELECT * FROM status_tbl")
+    @Select("select * from status_tbl,user_tbl where status_tbl.uid=user_tbl.id;")
     List<Status> getAll();
 
     @Select("SELECT * FROM status_tbl WHERE uid = #{uid}")
