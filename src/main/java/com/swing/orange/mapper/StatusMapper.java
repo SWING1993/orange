@@ -10,9 +10,9 @@ import java.util.List;
 public interface StatusMapper {
 
     @Insert("INSERT INTO status_tbl " +
-            "(uid, type, avatar, avatarUrl, content, imageUrls, vedioUrl, created, fromDevice) " +
+            "(uid, type, content, imageUrls, vedioUrl, created, fromDevice) " +
             "VALUES " +
-            "(#{uid}, #{type}, #{avatar}, #{avatarUrl}, #{content}, #{imageUrls}, #{vedioUrl}, #{created}, #{fromDevice})")
+            "(#{uid}, #{type}, #{content}, #{imageUrls}, #{vedioUrl}, #{created}, #{fromDevice})")
     void insert(Status status);
 
     @Select("SELECT * FROM status_tbl WHERE id = #{id}")
@@ -24,9 +24,7 @@ public interface StatusMapper {
     @Select("SELECT * FROM status_tbl WHERE uid = #{uid}")
     List<Status> selectByUid(long uid);
 
-
     @Delete("DELETE FROM status_tbl WHERE id = #{id}")
     void deleteById(long id);
-
 
 }

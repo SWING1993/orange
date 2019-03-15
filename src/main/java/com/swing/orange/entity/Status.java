@@ -9,7 +9,7 @@ public class Status implements Serializable {
     private long uid;
     // 状态类型 0 = 图文  1 = 视频
     private int type;
-    private String avatar;
+    private String nickname;
     private String avatarUrl;
     private String content;
     private String imageUrls;
@@ -21,10 +21,10 @@ public class Status implements Serializable {
         super();
     }
 
-    public Status(long uid, int type, String avatar, String avatarUrl, String content, String imageUrls, String vedioUrl, long created, String fromDevice) {
+    public Status(long uid, int type, String nickname, String avatarUrl, String content, String imageUrls, String vedioUrl, long created, String fromDevice) {
         this.uid = uid;
         this.type = type;
-        this.avatar = avatar;
+        this.nickname = nickname;
         this.avatarUrl = avatarUrl;
         this.content = content;
         this.imageUrls = imageUrls;
@@ -57,12 +57,12 @@ public class Status implements Serializable {
         this.type = type;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getAvatarUrl() {
@@ -119,7 +119,7 @@ public class Status implements Serializable {
                 "id=" + id +
                 ", uid=" + uid +
                 ", type=" + type +
-                ", avatar='" + avatar + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 ", content='" + content + '\'' +
                 ", imageUrls='" + imageUrls + '\'' +

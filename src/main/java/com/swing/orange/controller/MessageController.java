@@ -43,7 +43,7 @@ public class MessageController {
     // 查询消息
     @GetMapping("/message")
     public RestResult messageList(@RequestHeader(value = "uid") long uid, @RequestParam(value = "pageNum") int pageNum) {
-        Page<Message> page = PageHelper.startPage(pageNum, 20).doSelectPage(()-> this.messageMapper.selectByUid(uid));
+        Page<Message> page = PageHelper.startPage(pageNum, 20, "id desc").doSelectPage(()-> this.messageMapper.selectByUid(uid));
         return RestResultGenerator.genSuccessResult(page);
     }
 
