@@ -33,7 +33,7 @@ public class MessageController {
         Long uid = Long.valueOf(uidStr);
         User user = this.userMapper.selectById(uid);
         if (user != null) {
-            Message message = new Message(uid, 0, "", "",data, new Date().getTime());
+            Message message = new Message(uid, 0, "", "",data, 1000001);
             this.messageMapper.insert(message);
             AppPush.pushMessageToApp(user.getClientId(),data);
             return RestResultGenerator.genSuccessResult();

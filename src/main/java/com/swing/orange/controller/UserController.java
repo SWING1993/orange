@@ -120,9 +120,10 @@ public class UserController {
     }
 
     @PostMapping("/user/updateClientId")
-    public RestResult updateClientId(@RequestHeader(value = "uid") long uid, @RequestParam(value = "clientId") String clientId){
+    public RestResult updateClientId(@RequestHeader(value = "uid") long uid, @RequestParam(value = "clientId") String clientId) {
+        System.out.println("clientId:" + clientId + "  uid:" + uid);
         this.userMapper.updateClientId(clientId, uid);
-        return RestResultGenerator.genSuccessResult();
+        return RestResultGenerator.genSuccessResult("ok");
     }
 
     // 生成一个随机的4位验证码
