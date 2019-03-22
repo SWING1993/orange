@@ -41,7 +41,7 @@ public class RestResultGenerator {
      * @return
      */
     public static RestResult genSuccessResult() {
-        return genSuccessResult(null);
+        return genResult(true, "", "处理成功", 10000, "");
     }
 
     /**
