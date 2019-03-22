@@ -9,16 +9,22 @@ public class Message implements Serializable {
     private long id;
     // 用户id
     private long uid;
-    // 消息类型
+    // 类型
     private int type;
-    // 消息内容
+    // 内容
     private String content;
+    // 标题
+    private String title;
+    // 副标题
+    private String subtitle;
     // 创建时间
     private long created;
 
-    public Message(long uid, int type, String content, long created) {
+    public Message(long uid, int type, String title, String subtitle, String content, long created) {
         this.uid = uid;
         this.type = type;
+        this.title = title;
+        this.subtitle = subtitle;
         this.content = content;
         this.created = created;
     }
@@ -49,6 +55,22 @@ public class Message implements Serializable {
 
     public String getContent() {
         return content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public void setContent(String content) {

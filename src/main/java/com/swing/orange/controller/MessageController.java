@@ -11,6 +11,7 @@ import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.swing.orange.utils.AppPush;
 
 import java.util.Date;
 
@@ -32,8 +33,9 @@ public class MessageController {
         Long uid = Long.valueOf(uidStr);
         User user = this.userMapper.selectById(uid);
         if (user != null) {
-            Message message = new Message(uid, 0, data, new Date().getTime());
+            Message message = new Message(uid, 0, "", "",data, new Date().getTime());
             this.messageMapper.insert(message);
+            AppPush.pushMessageToApp(user.getClientId(),data);
             return RestResultGenerator.genSuccessResult();
         } else {
             return RestResultGenerator.genErrorResult("用户不存在");

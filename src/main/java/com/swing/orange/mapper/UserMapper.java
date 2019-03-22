@@ -30,4 +30,7 @@ public interface UserMapper {
     @Update("UPDATE user_tbl SET email = #{email}, nickname = #{nickname}, sex = #{sex}, avatarUrl = #{avatarUrl}, userDesc = #{userDesc}, updated = #{updated} WHERE id = #{id}")
     void update(User user);
 
+    @Update("UPDATE user_tbl SET clientId = #{clientId} WHERE id = #{id}")
+    void updateClientId(String clientId, long id);
+
 }

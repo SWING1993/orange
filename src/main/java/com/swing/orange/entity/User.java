@@ -44,6 +44,9 @@ public class User implements Serializable {
     // 用户token
     private String token;
 
+    // 推送的clientId
+    private String clientId;
+
     public User() {
         super();
     }
@@ -141,6 +144,14 @@ public class User implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     @Override

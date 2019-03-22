@@ -9,9 +9,9 @@ import java.util.List;
 public interface MessageMapper {
 
     @Insert("INSERT INTO msg_tbl " +
-            "(uid, type, content, created) " +
+            "(uid, type, title, subtitle, content, created) " +
             "VALUES " +
-            "(#{uid}, #{type}, #{content}, #{created})")
+            "(#{uid}, #{type}, #{title}, #{subtitle}, #{content}, #{created})")
     void insert(Message message);
 
     @Select("SELECT * FROM msg_tbl WHERE id = #{id}")

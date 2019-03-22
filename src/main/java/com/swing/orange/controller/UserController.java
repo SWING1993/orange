@@ -87,11 +87,11 @@ public class UserController {
     }
 
     // 删除用户
-    @DeleteMapping("/user")
-    public RestResult deleteUser(@RequestParam(value = "uid") Long uid){
-        this.userMapper.deleteById(uid);
-        return RestResultGenerator.genSuccessResult();
-    }
+//    @DeleteMapping("/user")
+//    public RestResult deleteUser(@RequestParam(value = "uid") Long uid){
+//        this.userMapper.deleteById(uid);
+//        return RestResultGenerator.genSuccessResult();
+//    }
 
     // 修改用户资料
     @PutMapping("/user")
@@ -117,6 +117,12 @@ public class UserController {
     public RestResult<User> finUserById(@RequestParam(value = "id") Long id) {
         User user = this.userMapper.selectById(id);
         return RestResultGenerator.genSuccessResult(user);
+    }
+
+    @PostMapping("/user/updateClientId")
+    public RestResult updateClientId(@RequestHeader(value = "uid") long uid, @RequestParam(value = "clientId") String clientId){
+        this.userMapper.updateClientId(clientId, uid);
+        return RestResultGenerator.genSuccessResult();
     }
 
     // 生成一个随机的4位验证码
