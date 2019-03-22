@@ -13,7 +13,5 @@ public class OrangeApplicationTests {
 	public void contextLoads() {
 
 	}
-
-
 }
 

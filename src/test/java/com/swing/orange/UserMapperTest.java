@@ -22,16 +22,13 @@ public class UserMapperTest {
     public void testInsert() {
         userMapper.insert(new User("18667905583", "10446627@qq.com", "123456", new Date()));
         System.out.println("插入User:18667905583");
-
     }
-
 
     @Test
     public void testSelectUserByPhone() {
         User user = userMapper.selectByPhone("18667905583");
         System.out.println(user);
     }
-
 
     @Test
     public void testSelectUserByEmail() {
@@ -54,7 +51,6 @@ public class UserMapperTest {
         List<User> users = userMapper.getAll();
         System.out.println(users);
     }
-
 
     @Test
     public void testUpdate() {

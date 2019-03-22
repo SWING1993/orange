@@ -18,5 +18,4 @@ public class AuthenticationWebMvcConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(tokenInterceptor()).excludePathPatterns("/", "/user/authCode", "/user/register", "/user/login", "/message/send");
     }
 
-
 }
