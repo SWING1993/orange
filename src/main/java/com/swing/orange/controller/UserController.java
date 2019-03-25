@@ -35,7 +35,10 @@ public class UserController {
 
     // 注册
     @PostMapping("/user/register")
-    public RestResult saveUser(@RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email, @RequestParam(value = "password") String password, @RequestParam(value = "authCode") String authCode) {
+    public RestResult saveUser(@RequestParam(value = "phone") String phone,
+                               @RequestParam(value = "email") String email,
+                               @RequestParam(value = "password") String password,
+                               @RequestParam(value = "authCode") String authCode) {
 //        if (!this.authCodeMap.get(email).equals(authCode)) {
 //            return RestResultGenerator.genErrorResult("验证码错误！");
 //        }
@@ -120,7 +123,8 @@ public class UserController {
     }
 
     @PostMapping("/user/updateClientId")
-    public RestResult updateClientId(@RequestHeader(value = "uid") long uid, @RequestParam(value = "clientId") String clientId) {
+    public RestResult updateClientId(@RequestHeader(value = "uid") long uid,
+                                     @RequestParam(value = "clientId") String clientId) {
         System.out.println("clientId:" + clientId + "  uid:" + uid);
         this.userMapper.updateClientId(clientId, uid);
         return RestResultGenerator.genSuccessResult("ok");

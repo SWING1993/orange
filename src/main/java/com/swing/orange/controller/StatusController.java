@@ -26,13 +26,15 @@ public class StatusController {
     }
 
     @GetMapping("/status")
-    public RestResult statusList(@RequestHeader(value = "uid") int uid, @RequestParam(value = "pageNum", required = false, defaultValue = "0") int pageNum) {
+    public RestResult statusList(@RequestHeader(value = "uid") int uid,
+                                 @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum) {
         Page<Status> page = PageHelper.startPage(pageNum, 20, "status_tbl.id desc").doSelectPage(()-> this.statusMapper.selectByUid(uid));
         return RestResultGenerator.genSuccessResult(page);
     }
 
     @DeleteMapping("/status")
-    public RestResult deleteStatus(@RequestHeader(value = "uid") int uid, @RequestParam(value = "id") int id) {
+    public RestResult deleteStatus(@RequestHeader(value = "uid") int uid,
+                                   @RequestParam(value = "id") int id) {
         Status status = this.statusMapper.selectById(id);
         if (status.getUid() == uid) {
             this.statusMapper.deleteById(id);
@@ -42,7 +44,7 @@ public class StatusController {
     }
 
     @GetMapping("/status/all")
-    public RestResult allStatusList(@RequestParam(value = "pageNum", required = false, defaultValue = "0") int pageNum) {
+    public RestResult allStatusList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum) {
         Page<Status> page = PageHelper.startPage(pageNum, 20, "status_tbl.id desc").doSelectPage(()-> this.statusMapper.getAll());
         return RestResultGenerator.genSuccessResult(page);
     }
