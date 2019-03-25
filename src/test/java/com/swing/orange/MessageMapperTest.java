@@ -25,7 +25,7 @@ public class MessageMapperTest {
     @Test
     public void insertTest() {
         User user = this.userMapper.getAll().get(0);
-        Message message = new Message(user.getId(), 0, "title", "subtitle", "2...测试一下哈", 0);
+        Message message = new Message(user.getId(), 0, "title", "2...测试一下哈", 0);
         this.messageMapper.insert(message);
     }
 

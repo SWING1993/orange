@@ -18,7 +18,6 @@ public class AppPush {
 
     public static void pushMessageToApp(String clientId, String title, String body) {
         AppPush.pushMessageToApp(clientId, title, "", body);
-
     }
 
     public static void pushMessageToApp(String clientId, String title, String subtitle, String body) {

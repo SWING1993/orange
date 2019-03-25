@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.swing.orange.utils.AppPush;
 
-import java.util.Date;
-
 @RestController
 public class MessageController {
 
@@ -26,16 +24,16 @@ public class MessageController {
 
     // 新增消息
     @PostMapping("/message/send")
-    public RestResult insertMessage(@RequestParam(value = "access_token") String access_token, @RequestBody String data) {
+    public RestResult insertMessage(@RequestParam(value = "access_token") String access_token, @RequestParam(value = "msg") String msg) {
         System.out.println("access_token:" + access_token);
-        System.out.println("data:" + data);
+        System.out.println("msg:" + msg);
         String uidStr = JWTUtil.getUid(access_token);
         Long uid = Long.valueOf(uidStr);
         User user = this.userMapper.selectById(uid);
         if (user != null) {
-            Message message = new Message(uid, 0, "", "",data, 1000001);
+            Message message = new Message(uid, 0, "",msg, System.currentTimeMillis());
             this.messageMapper.insert(message);
-            AppPush.pushMessageToApp(user.getClientId(),data);
+            AppPush.pushMessageToApp(user.getClientId(),msg);
             return RestResultGenerator.genSuccessResult();
         } else {
             return RestResultGenerator.genErrorResult("用户不存在");
