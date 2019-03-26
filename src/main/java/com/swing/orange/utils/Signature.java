@@ -12,7 +12,7 @@ public class Signature {
     // ACCESS_SECRET
     private static final String ACCESS_SECRET = "!@#orange";
     // md5盐值，用于混淆
-    private final static String signSalt = "orange!@#";
+    private final static String SIGNSALT = "orange!@#";
 
     // 验证签名
     public static boolean verificationSign(String originSign, Map<String, Object> params) throws Exception {
@@ -33,7 +33,7 @@ public class Signature {
         }
         temp.append(ACCESS_KEY).append("=").append(ACCESS_SECRET);
         System.out.println("createSign temp：" + temp);
-        String sign = Md5.getMd5(temp.toString(), signSalt);
+        String sign = Md5.getMd5(temp.toString(), SIGNSALT);
         System.out.println("签名：" + sign);
         return sign;
     }
