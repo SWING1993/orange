@@ -5,6 +5,8 @@ import com.gexin.rp.sdk.base.impl.Target;
 import com.gexin.rp.sdk.base.payload.APNPayload;
 import com.gexin.rp.sdk.http.IGtPush;
 import com.gexin.rp.sdk.template.TransmissionTemplate;
+import com.google.gson.Gson;
+import com.swing.orange.entity.Message;
 
 public class AppPush {
     private static String kAppId = "XotSLiKHSX7iswSsQlJir8";
@@ -41,7 +43,9 @@ public class AppPush {
         template.setAppId(kAppId);
         template.setAppkey(kAppKey);
         // 透传内容，不支持转义字符
-        template.setTransmissionContent("透传内容");
+        Message message = new Message(0, 0, title, body, 0);
+        Gson gson = new Gson();
+        template.setTransmissionContent(gson.toJson(message));
         // 收到消息是否立即启动应用，1为立即启动，2则广播等待客户端自启动
         template.setTransmissionType(2);
 
