@@ -12,6 +12,8 @@ import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.swing.orange.utils.AppPush;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class MessageController {
@@ -24,19 +26,22 @@ public class MessageController {
 
     // 新增消息
     @PostMapping("/message/send")
-    public RestResult insertMessage(@RequestParam(value = "access_token") String access_token,
+    public RestResult insertMessage(@RequestParam(value = "messageToken") String messageToken,
                                     @RequestParam(value = "content") String content,
                                     @RequestParam(value = "title", defaultValue = "", required = false) String title) {
-        System.out.println("access_token:" + access_token);
+        System.out.println("messageToken:" + messageToken);
         System.out.println("messageContent:" + content);
-        String uidStr = JWTUtil.getUid(access_token);
+        String uidStr = JWTUtil.getUid(messageToken);
         Long uid = Long.valueOf(uidStr);
         User user = this.userMapper.selectById(uid);
         if (user != null) {
-            Message message = new Message(uid, 0, title ,content, System.currentTimeMillis());
-            this.messageMapper.insert(message);
-            AppPush.pushMessageToApp(user.getClientId(), title, content);
-            return RestResultGenerator.genSuccessResult();
+            if (messageToken.equals(user.getMessageToken())) {
+                Message message = new Message(uid, 0, title ,content, System.currentTimeMillis());
+                this.messageMapper.insert(message);
+                AppPush.pushMessageToApp(user.getClientId(), title, content);
+                return RestResultGenerator.genSuccessResult();
+            }
+            return RestResultGenerator.genErrorResult("messageToken无效");
         } else {
             return RestResultGenerator.genErrorResult("用户不存在");
         }
@@ -62,5 +67,29 @@ public class MessageController {
             return RestResultGenerator.genErrorResult("没有该条消息");
         }
     }
+
+    // 查询access_token
+    @GetMapping("/message/token")
+    public RestResult messageToken(@RequestHeader(value = "uid") long uid) {
+        User user = this.userMapper.selectById(uid);
+        String token = this.userMapper.getMessageToken(uid);
+        Boolean needUpdate = false;
+        if (token != null) {
+            int verify = JWTUtil.verify(token, String.valueOf(uid), user.getPassword());
+            if (verify > 0) {
+                needUpdate = true;
+            }
+        } else {
+            needUpdate = true;
+        }
+        if (needUpdate) {
+            token = JWTUtil.sign(String.valueOf(user.getId()), user.getPassword(), 365);
+            this.userMapper.updateMessageToken(token, uid);
+        }
+        Map<String,String> map = new HashMap<>();
+        map.put("messageToken", token);
+        return RestResultGenerator.genSuccessResult(map);
+    }
+
 
 }

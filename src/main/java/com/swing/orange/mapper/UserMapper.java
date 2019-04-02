@@ -39,4 +39,11 @@ public interface UserMapper {
     @Update("UPDATE user_tbl SET clientId = #{clientId} WHERE id = #{uid}")
     void updateClientId(String clientId, long uid);
 
+    @Update("UPDATE user_tbl SET messageToken = #{messageToken} WHERE id = #{uid}")
+    void updateMessageToken(String messageToken, long uid);
+
+
+    @Select("SELECT messageToken FROM user_tbl WHERE id = #{uid}")
+    String getMessageToken(long uid);
+
 }

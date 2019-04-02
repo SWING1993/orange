@@ -59,7 +59,7 @@ public class UserController {
         if (!user.getPassword().equals(Md5.getMd5(password, passwdSalt))) {
             return RestResultGenerator.genErrorResult("密码错误！");
         }
-        String token = JWTUtil.sign(String.valueOf(user.getId()), user.getPassword());
+        String token = JWTUtil.sign(String.valueOf(user.getId()), user.getPassword(), 7);
         user.setToken(token);
         return RestResultGenerator.genSuccessResult(user);
     }
@@ -75,7 +75,7 @@ public class UserController {
         if (!user.getPassword().equals(Md5.getMd5(password, passwdSalt))) {
             return RestResultGenerator.genErrorResult("密码错误！");
         }
-        user.setToken(JWTUtil.sign(String.valueOf(user.getId()), user.getPassword()));
+        user.setToken(JWTUtil.sign(String.valueOf(user.getId()), user.getPassword(), 7));
         return RestResultGenerator.genSuccessResult(user);
     }
 
@@ -83,7 +83,7 @@ public class UserController {
     @GetMapping("/user/refreshToekn")
     public RestResult refreshToekn(@RequestHeader(value = "uid") String uid) {
         User user = this.userMapper.selectById(Long.valueOf(uid));
-        String token = JWTUtil.sign(uid, user.getPassword());
+        String token = JWTUtil.sign(uid, user.getPassword(), 7);
         HashMap map = new HashMap();
         map.put("token", token);
         return RestResultGenerator.genSuccessResult(map);

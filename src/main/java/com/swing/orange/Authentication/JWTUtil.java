@@ -13,8 +13,6 @@ import java.util.Date;
 public class JWTUtil {
 
     private static final Logger loger = LoggerFactory.getLogger(JWTUtil.class);
-
-    private static final long EXPIRE_TIME = 365 * 24 * 60 * 60 * 1000;
     private static final String claimKey = "uid";
 
     /**
@@ -22,10 +20,12 @@ public class JWTUtil {
      *
      * @param uid 用户名
      * @param secret 用户的密码
+     * @param expireDays token过期天数
      * @return 加密的token
      */
-    public static String sign(String uid, String secret) {
-        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+    public static String sign(String uid, String secret, int expireDays) {
+        long expireTime = expireDays * 24 * 60 * 60 * 1000;
+        Date date = new Date(System.currentTimeMillis() + expireTime);
         Algorithm algorithm = Algorithm.HMAC256(secret);
         // 附带uid信息
         String token = JWT.create()

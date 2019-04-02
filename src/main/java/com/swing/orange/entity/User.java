@@ -47,6 +47,9 @@ public class User implements Serializable {
     // 推送的clientId
     private String clientId;
 
+    // 接受外部消息的token
+    private String messageToken;
+
     public User() {
         super();
     }
@@ -154,6 +157,14 @@ public class User implements Serializable {
         this.clientId = clientId;
     }
 
+    public String getMessageToken() {
+        return messageToken;
+    }
+
+    public void setMessageToken(String messageToken) {
+        this.messageToken = messageToken;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -168,6 +179,8 @@ public class User implements Serializable {
                 ", avatarUrl='" + avatarUrl + '\'' +
                 ", userDesc='" + userDesc + '\'' +
                 ", token='" + token + '\'' +
+                ", clientId='" + clientId + '\'' +
+                ", messageToken='" + messageToken + '\'' +
                 '}';
     }
 }

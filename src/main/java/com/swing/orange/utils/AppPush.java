@@ -75,7 +75,6 @@ public class AppPush {
         alertMsg.setSubtitle(subtitle);
         alertMsg.setBody(body);
         payload.setAlertMsg(alertMsg);
-
         template.setAPNInfo(payload);
         return template;
     }
