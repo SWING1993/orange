@@ -12,14 +12,8 @@ spring:
     username: root
     password: song.1005
 
-  mail:
-    host: smtp.qq.com
-    username: superme@swing1993.cn
-    password: csnvdzittkegbjei
-    default-encoding: UTF-8
-
   jpa:
-    show : ture
+    show: ture
     properties:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       hbm2ddl:
@@ -44,4 +38,14 @@ pagehelper:
   params: count=countSql
   page-size-zero: true
 
-mail.fromMail.addr: superme@swing1993.cn
+info:
+  app:
+    name: orange
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /swing

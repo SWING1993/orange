@@ -9,7 +9,6 @@ import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
-import com.swing.orange.service.MailService;
 
 @RestController
 public class UserController {
@@ -17,21 +16,20 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private MailService mailService;
+
 
     private HashMap<String, String> authCodeMap = new HashMap<>();
 
     private static final String passwdSalt = "orange_password";
 
     // 获取验证码
-    @GetMapping("/user/authCode")
-    public RestResult getAuthCode(@RequestParam(value = "email") String email) {
-        String authCode = this.achieveCode();
-        this.mailService.sendHtmlMail(email, "注册验证码", "您好，您的注册验证码为" + authCode);
-        authCodeMap.put(email, authCode);
-        return RestResultGenerator.genSuccessResult();
-    }
+//    @GetMapping("/user/authCode")
+//    public RestResult getAuthCode(@RequestParam(value = "email") String email) {
+//        String authCode = this.achieveCode();
+//        this.mailService.sendHtmlMail(email, "注册验证码", "您好，您的注册验证码为" + authCode);
+//        authCodeMap.put(email, authCode);
+//        return RestResultGenerator.genSuccessResult();
+//    }
 
     // 注册
     @PostMapping("/user/register")
