@@ -38,7 +38,7 @@ public class MessageController {
             if (messageToken.equals(user.getMessageToken())) {
                 Message message = new Message(uid, 0, title ,content, System.currentTimeMillis());
                 this.messageMapper.insert(message);
-                AppPush.pushMessageToApp(user.getClientId(), title, content);
+                AppPush.pushMessageToSingleApp(user.getClientId(), title, content);
                 return RestResultGenerator.genSuccessResult();
             }
             return RestResultGenerator.genErrorResult("messageToken无效");

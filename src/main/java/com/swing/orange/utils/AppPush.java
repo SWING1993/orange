@@ -1,5 +1,6 @@
 package com.swing.orange.utils;
 import com.gexin.rp.sdk.base.IPushResult;
+import com.gexin.rp.sdk.base.impl.AppMessage;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.impl.Target;
 import com.gexin.rp.sdk.base.payload.APNPayload;
@@ -8,23 +9,40 @@ import com.gexin.rp.sdk.template.TransmissionTemplate;
 import com.google.gson.Gson;
 import com.swing.orange.entity.Message;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppPush {
     private static String kAppId = "XotSLiKHSX7iswSsQlJir8";
     private static String kAppKey = "ZjzdJP5fNH9BSWg8MMHek";
     private static String kMasterSecret = "ZgBzZA69ad6PfwJ4XKonl9";
     private static String kHost = "http://sdk.open.api.igexin.com/apiex.htm";
 
-    public static void pushMessageToApp(String clientId, String body) {
-        AppPush.pushMessageToApp(clientId, "", "", body);
-    }
-
-    public static void pushMessageToApp(String clientId, String title, String body) {
-        AppPush.pushMessageToApp(clientId, title, "", body);
-    }
-
-    public static void pushMessageToApp(String clientId, String title, String subtitle, String body) {
+    public static void pushMessageToApp(String title, String content) {
         IGtPush push = new IGtPush(kHost, kAppKey, kMasterSecret);
-        TransmissionTemplate template = getTemplate(title, subtitle, body);
+        TransmissionTemplate template = getTemplate(title, "", content);
+        AppMessage appMessage = new AppMessage();
+        appMessage.setData(template);
+        appMessage.setOffline(true);
+        appMessage.setOfflineExpireTime(24 * 1000 * 3600);
+        List<String> appIdList = new ArrayList<String>();
+        appIdList.add(kAppId);
+        appMessage.setAppIdList(appIdList);
+        IPushResult ret = push.pushMessageToApp(appMessage);
+        System.out.println(ret.getResponse().toString());
+    }
+
+    public static void pushMessageToSingleApp(String clientId, String content) {
+        AppPush.pushMessageToSingleApp(clientId, "", "", content);
+    }
+
+    public static void pushMessageToSingleApp(String clientId, String title, String content) {
+        AppPush.pushMessageToSingleApp(clientId, title, "", content);
+    }
+
+    public static void pushMessageToSingleApp(String clientId, String title, String subtitle, String content) {
+        IGtPush push = new IGtPush(kHost, kAppKey, kMasterSecret);
+        TransmissionTemplate template = getTemplate(title, subtitle, content);
 
         SingleMessage message = new SingleMessage();
         message.setData(template);
@@ -38,12 +56,12 @@ public class AppPush {
         System.out.println(clientId + "  " + ret.getResponse().toString());
     }
 
-    public static TransmissionTemplate getTemplate(String title, String subtitle, String body) {
+    public static TransmissionTemplate getTemplate(String title, String subtitle, String content) {
         TransmissionTemplate template = new TransmissionTemplate();
         template.setAppId(kAppId);
         template.setAppkey(kAppKey);
         // 透传内容，不支持转义字符
-        Message message = new Message(0, 0, title, body, 0);
+        Message message = new Message(0, 0, title, content, 0);
         Gson gson = new Gson();
         template.setTransmissionContent(gson.toJson(message));
         // 收到消息是否立即启动应用，1为立即启动，2则广播等待客户端自启动
@@ -73,7 +91,7 @@ public class AppPush {
         APNPayload.DictionaryAlertMsg alertMsg = new APNPayload.DictionaryAlertMsg();
         alertMsg.setTitle(title);
         alertMsg.setSubtitle(subtitle);
-        alertMsg.setBody(body);
+        alertMsg.setBody(content);
         payload.setAlertMsg(alertMsg);
         template.setAPNInfo(payload);
         return template;
