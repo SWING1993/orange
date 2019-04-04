@@ -16,8 +16,6 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-
-
     private HashMap<String, String> authCodeMap = new HashMap<>();
 
     private static final String passwdSalt = "orange_password";

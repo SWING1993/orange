@@ -4,7 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.gson.Gson;
 import com.swing.orange.entity.Status;
+import com.swing.orange.entity.User;
 import com.swing.orange.mapper.StatusMapper;
+import com.swing.orange.mapper.UserMapper;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,20 @@ import org.springframework.web.bind.annotation.*;
 public class StatusController {
 
     @Autowired
+    UserMapper userMapper;
+
+    @Autowired
     StatusMapper statusMapper;
 
     @PostMapping("/status")
-    public RestResult postStatus(@RequestParam(value = "status") String statusJson) {
-        System.out.println(statusJson);
-        Gson gson = new Gson();
-        Status status = gson.fromJson(statusJson, Status.class);
+    public RestResult postStatus(@RequestParam(value = "uid") long uid,
+                                 @RequestParam(value = "type") int type,
+                                 @RequestParam(value = "content") String content,
+                                 @RequestParam(value = "imageUrls", required = false) String imageUrls,
+                                 @RequestParam(value = "vedioUrl", required = false) String vedioUrl,
+                                 @RequestParam(value = "fromDevice", required = false) String fromDevice) {
+        User user = this.userMapper.selectById(uid);
+        Status status = new Status(uid, type, user.getNickname(), user.getAvatarUrl(), content, imageUrls, vedioUrl, System.currentTimeMillis(),fromDevice);
         this.statusMapper.insert(status);
         return RestResultGenerator.genSuccessResult();
     }

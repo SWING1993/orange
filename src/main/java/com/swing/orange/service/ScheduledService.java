@@ -34,4 +34,15 @@ public class ScheduledService {
         System.out.println("scheduled task");
     }
 
+//    @Scheduled(cron = "0 50 18 * * 1-5")
+//    public void scheduled() {
+//        List<User> userList = userMapper.getAll();
+//        for (User user:userList) {
+//            Message message = new Message(user.getId(), 0, "打卡", "人生苦短，及时行乐。", System.currentTimeMillis());
+//            this.messageMapper.insert(message);
+//            AppPush.pushMessageToApp(message.getTitle(), message.getContent());
+//        }
+//        System.out.println("scheduled task");
+//    }
+
 }

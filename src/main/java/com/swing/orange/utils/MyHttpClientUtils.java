@@ -31,7 +31,7 @@ public class MyHttpClientUtils {
             System.out.println("getHandle response:" + result);
             return result;
         }
-        return RestResultGenerator.genErrorResult("xyz服务器异常");
+        return RestResultGenerator.genErrorResult("服务器异常");
     }
 
     // 发送post请求
@@ -75,6 +75,6 @@ public class MyHttpClientUtils {
             System.out.println("postHandle response :"+result);
             return result;
         }
-        return RestResultGenerator.genErrorResult("xyz服务器异常");
+        return RestResultGenerator.genErrorResult("服务器异常");
     }
 }
