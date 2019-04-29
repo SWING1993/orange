@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SSRController {
 
-    private final String url = "http://35.241.122.72:8080/tomato";
+    private final String url = "http://35.221.106.79:8080/tomato";
 
     // 查询所有SSR用户的配置
     @GetMapping("/ssr/user")

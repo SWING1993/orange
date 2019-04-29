@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @RestController
 public class ASFController {
 
-    private final String url = "http://35.241.122.72:8080/tomato";
+    private final String url = "http://35.221.106.79:8080/tomato";
 
     @GetMapping("/asf/findBots")
     public RestResult findBots() throws Exception {
