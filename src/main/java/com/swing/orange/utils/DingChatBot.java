@@ -14,7 +14,7 @@ public class DingChatBot {
 
     public static String WEBHOOK_TOKEN = "https://oapi.dingtalk.com/robot/send?access_token=15018194c2e2025afd72ff340a438fa445608eeecb1bf62f45816f5919760580";
 
-    public static int sendMsg(String msg) throws IOException {
+    public static int sendMsg(String msg) {
         HttpClient httpclient = HttpClients.createDefault();
 
         HttpPost httppost = new HttpPost(WEBHOOK_TOKEN);
@@ -24,12 +24,18 @@ public class DingChatBot {
         StringEntity se = new StringEntity(textMsg, "utf-8");
         httppost.setEntity(se);
 
-        HttpResponse response = httpclient.execute(httppost);
-        int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode == HttpStatus.SC_OK) {
-            String result= EntityUtils.toString(response.getEntity(), "utf-8");
-            System.out.println(result);
+        try {
+            HttpResponse response = httpclient.execute(httppost);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == HttpStatus.SC_OK) {
+                String result= EntityUtils.toString(response.getEntity(), "utf-8");
+                System.out.println(result);
+            }
+            return statusCode;
+        } catch (Exception e) {
+            return 0;
         }
-        return statusCode;
+
+
     }
 }
