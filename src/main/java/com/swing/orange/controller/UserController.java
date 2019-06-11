@@ -3,11 +3,14 @@ package com.swing.orange.controller;
 import com.swing.orange.Authentication.JWTUtil;
 import com.swing.orange.entity.User;
 import com.swing.orange.mapper.UserMapper;
+import com.swing.orange.utils.DingChatBot;
 import com.swing.orange.utils.Md5;
 import com.swing.orange.utils.RestResult;
 import com.swing.orange.utils.RestResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -46,7 +49,7 @@ public class UserController {
     // phone登录
     @PostMapping("/user/login")
     public RestResult login(@RequestParam(value = "phone") String phone,
-                            @RequestParam(value = "password") String password) {
+                            @RequestParam(value = "password") String password) throws IOException {
         User user = this.userMapper.selectByPhone(phone);
         System.out.println("user:" + user);
         if (user == null) {
@@ -57,6 +60,7 @@ public class UserController {
         }
         String token = JWTUtil.sign(String.valueOf(user.getId()), user.getPassword(), 7);
         user.setToken(token);
+        DingChatBot.sendMsg(phone + "登录OrangeWeb");
         return RestResultGenerator.genSuccessResult(user);
     }
 
